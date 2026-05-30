@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <circle cx="60" cy="60" r="58" stroke="#c9a227" stroke-width="2" fill="#0a0e1a"/>
+  <path d="M60 18 L68 42 L94 42 L73 56 L81 80 L60 66 L39 80 L47 56 L26 42 L52 42 Z" fill="#c9a227" opacity="0.9"/>
+  <circle cx="60" cy="88" r="6" fill="#e8dcc4"/>
+  <text x="60" y="108" text-anchor="middle" fill="#c9a227" font-family="serif" font-size="8" letter-spacing="1">NN</text>
+</svg>
