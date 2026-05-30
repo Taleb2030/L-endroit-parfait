@@ -22,7 +22,7 @@ export default function Footer() {
           <p className="footer__tagline">{t('footer.tagline')}</p>
         </div>
         <p className="footer__copy">
-          © {year} Nouakchott Night. {t('footer.rights')}
+          © {year} L'endroit_parfait. {t('footer.rights')}
         </p>
       </div>
     </motion.footer>

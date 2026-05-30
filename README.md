@@ -1,6 +1,6 @@
-# Nouakchott Night — Restaurant Website
+# Restaurant L'endroit_parfait — Restaurant Website
 
-A beautiful, multilingual React website for **Nouakchott Night**, welcoming guests and families. Available in **English**, **French**, and **Arabic** (with RTL support).
+A beautiful, multilingual React website for **Restaurant L'endroit_parfait**, welcoming guests and families. Available in **English**, **French**, and **Arabic** (with RTL support).
 
 ## Quick start
 

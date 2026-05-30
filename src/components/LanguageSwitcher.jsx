@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const LANGUAGES = [
-  { code: 'en', label: 'English', short: 'EN' },
-  { code: 'fr', label: 'Français', short: 'FR' },
-  { code: 'ar', label: 'العربية', short: 'ع' },
+  { code: 'en', label: 'English', short: 'EN', flag: '🇬🇧' },
+  { code: 'fr', label: 'Français', short: 'FR', flag: '🇫🇷' },
+  { code: 'ar', label: 'العربية', short: 'ع', flag: '🇲🇷' },
 ]
 
 export default function LanguageSwitcher() {
@@ -47,10 +47,10 @@ export default function LanguageSwitcher() {
         aria-haspopup="listbox"
         aria-label={t('nav.language')}
       >
-        <span className="lang-dropdown__icon" aria-hidden>
-          🌐
+        <span className="lang-dropdown__flag" aria-hidden>
+          {current.flag}
         </span>
-        <span className="lang-dropdown__current">{current.short}</span>
+        <span className="lang-dropdown__current">{current.label}</span>
         <span className={`lang-dropdown__chevron ${open ? 'lang-dropdown__chevron--open' : ''}`} aria-hidden>
           ▾
         </span>
@@ -58,14 +58,15 @@ export default function LanguageSwitcher() {
 
       {open && (
         <ul className="lang-dropdown__menu" role="listbox" aria-label={t('nav.language')}>
-          {LANGUAGES.map(({ code, label }) => (
+          {LANGUAGES.map(({ code, label, flag }) => (
             <li key={code} role="option" aria-selected={i18n.language?.startsWith(code)}>
               <button
                 type="button"
                 className={i18n.language?.startsWith(code) ? 'active' : ''}
                 onClick={() => selectLanguage(code)}
               >
-                {label}
+                <span className="lang-dropdown__menu-flag">{flag}</span>
+                <span>{label}</span>
               </button>
             </li>
           ))}

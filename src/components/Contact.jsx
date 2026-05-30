@@ -44,7 +44,7 @@ export default function Contact() {
             variants={staggerContainer}
           >
             {[
-              { strong: t('contact.phone'), content: <a href="tel:+22200000000">+222 00 00 00 00</a> },
+              { strong: t('contact.phone'), content: <a href="tel:+22200000000">+222 22 02 02 02</a> },
               { strong: t('contact.hours'), content: <span>{t('contact.hoursValue')}</span> },
               { strong: t('contact.address'), content: <span>{t('contact.address')}</span> },
             ].map((item, i) => (

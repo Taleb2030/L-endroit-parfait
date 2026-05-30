@@ -9,17 +9,17 @@
     "language": "Language"
   },
   "hero": {
-    "tagline": "Where the city meets the night",
-    "title": "Nouakchott Night",
-    "subtitle": "A grand restaurant for guests and families — fine dining, warm hospitality, and evenings to remember.",
-    "cta": "Book Your Evening",
-    "scroll": "Discover"
+    "tagline": "Refined Elegance & Culinary Excellence",
+    "title": "L'endroit_parfait",
+    "subtitle": "An exclusive sanctuary for discerning guests — where gastronomy meets sophistication, and every moment becomes an unforgettable experience.",
+    "cta": "Reserve Your Table",
+    "scroll": "Discover More"
   },
   "about": {
-    "label": "Our Story",
-    "title": "A destination for every generation",
-    "p1": "Nouakchott Night welcomes travelers, locals, and families under one roof. Our spacious dining rooms, private corners, and lively terrace create the perfect setting for celebrations and quiet dinners alike.",
-    "p2": "From traditional Mauritanian flavors to international cuisine, every plate is prepared with care. Our team treats every guest like family.",
+    "label": "Our Heritage",
+    "title": "A culinary destination for the refined palate",
+    "p1": "L'endroit_parfait welcomes connoisseurs, travelers, and families seeking exceptional dining. Our meticulously designed spaces, intimate chambers, and curated terrace provide the perfect canvas for celebrations and culinary journeys alike.",
+    "p2": "From artisanal Mauritanian traditions to international gastronomy, each dish is a masterpiece. Our dedicated team treats every guest with the grace of true hospitality.",
     "stats": {
       "seats": "200+ Seats",
       "families": "Family Friendly",
@@ -28,31 +28,31 @@
   },
   "gallery": {
     "label": "Gallery",
-    "title": "Moments at Nouakchott Night",
-    "subtitle": "Three glimpses into our atmosphere — dining, celebration, and the magic of the night."
+    "title": "Visual Poetry at L'endroit_parfait",
+    "subtitle": "Glimpses of our refined atmosphere — the artistry of cuisine, moments of celebration, and the magic of impeccable service."
   },
   "experience": {
     "label": "The Experience",
-    "title": "Crafted for guests & families",
-    "paused": "Paused — take your time to read",
+    "title": "Curated for sophistication & comfort",
+    "paused": "Paused",
     "prev": "Previous",
     "next": "Next",
     "items": {
       "dining": {
-        "title": "Fine Dining",
-        "desc": "Seasonal menus, fresh ingredients, and chefs who honor tradition while embracing creativity."
+        "title": "Haute Cuisine",
+        "desc": "Seasonal menus crafted with precision, sourced ingredients, and chefs who elevate tradition into culinary art."
       },
       "family": {
-        "title": "Family Spaces",
-        "desc": "Comfortable seating, kids-friendly options, and rooms designed so everyone feels at home."
+        "title": "Serene Spaces",
+        "desc": "Thoughtfully appointed rooms, impeccable comfort, and an environment where all guests feel cherished and welcome."
       },
       "events": {
-        "title": "Celebrations",
-        "desc": "Weddings, birthdays, and corporate gatherings — we host your most important nights."
+        "title": "Celebrations Perfected",
+        "desc": "From intimate gatherings to grand soirées — we orchestrate your most significant moments with grace and precision."
       },
       "ambiance": {
-        "title": "Night Ambiance",
-        "desc": "Soft lighting, live music on weekends, and views that capture the spirit of Nouakchott."
+        "title": "Enchanting Ambiance",
+        "desc": "Sophisticated lighting, curated live performances on weekends, and vistas that capture timeless elegance."
       }
     }
   },
@@ -80,6 +80,6 @@
   },
   "footer": {
     "rights": "All rights reserved.",
-    "tagline": "Nouakchott Night — Hospitality under the stars."
+    "tagline": "L'endroit_parfait — Where refined taste meets boundless hospitality."
   }
 }

@@ -30,7 +30,7 @@ export default function Navbar() {
       <nav className="navbar__inner container">
         <a href="#home" className="navbar__brand" onClick={closeMenu}>
           <Logo className="navbar__logo" />
-          <span className="navbar__name">Nouakchott Night</span>
+          <span className="navbar__name">L'endroit_parfait</span>
         </a>
 
         <ul className="navbar__links">

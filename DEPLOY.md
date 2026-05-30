@@ -1,4 +1,4 @@
-# Publish Nouakchott Night for FREE
+# Publish Restaurant L'endroit_parfait for FREE
 
 Share a link with restaurant management — no payment required.
 
@@ -40,7 +40,7 @@ In PowerShell:
 cd "c:\Users\Administrator\Desktop\Nouakchott_Night"
 git init
 git add .
-git commit -m "Nouakchott Night restaurant website"
+git commit -m "Restaurant L'endroit_parfait restaurant website"
 ```
 
 On GitHub: **New repository** → name it `nouakchott-night` → Create (empty, no README).

@@ -9,17 +9,17 @@
     "language": "Langue"
   },
   "hero": {
-    "tagline": "Là où la ville rencontre la nuit",
-    "title": "Nouakchott Night",
-    "subtitle": "Un grand restaurant pour les invités et les familles — gastronomie raffinée, hospitalité chaleureuse et soirées inoubliables.",
-    "cta": "Réserver votre soirée",
-    "scroll": "Découvrir"
+    "tagline": "Élégance Raffinée & Excellence Culinaire",
+    "title": "L'endroit_parfait",
+    "subtitle": "Un sanctuaire exclusif pour les convives exigeants — où la gastronomie rencontre la sophistication, et chaque moment devient une expérience inoubliable.",
+    "cta": "Réserver votre table",
+    "scroll": "Découvrir Plus"
   },
   "about": {
-    "label": "Notre histoire",
-    "title": "Une destination pour toutes les générations",
-    "p1": "Nouakchott Night accueille voyageurs, habitants et familles sous un même toit. Nos vastes salles, coins privés et terrasse animée offrent le cadre idéal pour les fêtes comme pour les dîners intimes.",
-    "p2": "Des saveurs mauritaniennes traditionnelles à la cuisine internationale, chaque plat est préparé avec soin. Notre équipe traite chaque invité comme un membre de la famille.",
+    "label": "Notre Héritage",
+    "title": "Une destination culinaire pour le palais raffiné",
+    "p1": "L'endroit_parfait accueille les connaisseurs, voyageurs et familles en quête de gastronomie exceptionnelle. Nos espaces méticuleusement conçus, chambres intimes et terrasse curatée offrent le cadre idéal pour les célébrations et les voyages culinaires.",
+    "p2": "Des traditions mauritaniennes artisanales à la gastronomie internationale, chaque plat est un chef-d'œuvre. Notre équipe dévouée traite chaque convive avec la grâce de la véritable hospitalité.",
     "stats": {
       "seats": "200+ places",
       "families": "Familles bienvenues",
@@ -28,31 +28,31 @@
   },
   "gallery": {
     "label": "Galerie",
-    "title": "Moments à Nouakchott Night",
-    "subtitle": "Trois aperçus de notre ambiance — repas, célébration et magie de la nuit."
+    "title": "Poésie Visuelle à L'endroit_parfait",
+    "subtitle": "Aperçus de notre atmosphère raffinée — l'art de la cuisine, moments de célébration et la magie d'un service impeccable."
   },
   "experience": {
     "label": "L'expérience",
-    "title": "Pensé pour les invités et les familles",
-    "paused": "Pause — prenez le temps de lire",
+    "title": "Pensé pour la sophistication & le confort",
+    "paused": "Pause",
     "prev": "Précédent",
     "next": "Suivant",
     "items": {
       "dining": {
-        "title": "Gastronomie",
-        "desc": "Menus de saison, ingrédients frais et chefs qui honorent la tradition tout en innovant."
+        "title": "Haute Cuisine",
+        "desc": "Menus de saison élaborés avec précision, ingrédients sourcés et chefs qui élèvent la tradition en art culinaire."
       },
       "family": {
-        "title": "Espaces familiaux",
-        "desc": "Sièges confortables, options pour enfants et salles où chacun se sent chez soi."
+        "title": "Espaces Sereins",
+        "desc": "Salles pensées avec soin, confort impeccable, et un environnement où chaque convive se sent chéri et bienvenu."
       },
       "events": {
-        "title": "Célébrations",
-        "desc": "Mariages, anniversaires et réceptions d'entreprise — nous accueillons vos plus belles soirées."
+        "title": "Célébrations Parfaites",
+        "desc": "Des réunions intimes aux grandes soirées — nous orchestrons vos moments les plus significatifs avec grâce et précision."
       },
       "ambiance": {
-        "title": "Ambiance nocturne",
-        "desc": "Éclairage doux, musique live le week-end et vues qui capturent l'esprit de Nouakchott."
+        "title": "Ambiance Enchanteresse",
+        "desc": "Éclairage sophistiqué, performances musicales curées en fin de semaine, et vues qui capturent l'élégance intemporelle."
       }
     }
   },
@@ -80,6 +80,6 @@
   },
   "footer": {
     "rights": "Tous droits réservés.",
-    "tagline": "Nouakchott Night — L'hospitalité sous les étoiles."
+    "tagline": "L'endroit_parfait — Où le goût raffiné rencontre une hospitalité sans limites."
   }
 }

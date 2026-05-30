@@ -1,6 +1,6 @@
 import { useLogo } from '../hooks/useLogo'
 
-export default function Logo({ className = '', alt = 'Nouakchott Night', variant }) {
+export default function Logo({ className = '', alt = 'L\'endroit_parfait', variant }) {
   const logoSrc = useLogo()
   const classes = ['logo', variant && `logo--${variant}`, className].filter(Boolean).join(' ')
 

@@ -46,7 +46,7 @@ export default function About() {
             >
               <img
                 src={PHOTO}
-                alt="Nouakchott Night restaurant"
+                alt="L'endroit_parfait restaurant"
                 className="about__image"
                 onError={(e) => {
                   e.target.style.display = 'none'
