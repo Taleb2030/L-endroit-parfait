@@ -6,7 +6,9 @@
     "experience": "Expérience",
     "contact": "Contact",
     "reserve": "Réserver",
-    "language": "Langue"
+    "language": "Langue",
+    "menu": "Menu",
+    "close": "Fermer le menu"
   },
   "hero": {
     "tagline": "Élégance Raffinée & Excellence Culinaire",
@@ -29,7 +31,20 @@
   "gallery": {
     "label": "Galerie",
     "title": "Poésie Visuelle à L'endroit_parfait",
-    "subtitle": "Aperçus de notre atmosphère raffinée — l'art de la cuisine, moments de célébration et la magie d'un service impeccable."
+    "subtitle": "Aperçus de notre atmosphère raffinée — l'art de la cuisine, moments de célébration et la magie d'un service impeccable.",
+    "items": [
+      "Nos assiettes signature",
+      "Autour de la table",
+      "Soirées à L'endroit"
+    ],
+    "carousel": "Galerie vidéo",
+    "play": "Lire la vidéo",
+    "pause": "Mettre en pause",
+    "prev": "Vidéo précédente",
+    "next": "Vidéo suivante",
+    "slide": "Vidéo {{current}} sur {{total}}",
+    "goTo": "Afficher la vidéo {{n}} : {{title}}",
+    "swipe": "Glissez pour explorer"
   },
   "experience": {
     "label": "L'expérience",
@@ -71,7 +86,8 @@
       "date": "Date souhaitée",
       "message": "Demandes spéciales",
       "submit": "Envoyer"
-    }
+    },
+    "addressLabel": "Adresse"
   },
   "media": {
     "soundOn": "Activer le son",

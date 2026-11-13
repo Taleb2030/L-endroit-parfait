@@ -1,33 +1,54 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
-import { useRtl } from '../hooks/useRtl'
 import SectionHeader from './SectionHeader'
-import {
-  slideFromStart,
-  slideFromEnd,
-  fadeUpSoft,
-  staggerContainer,
-  scaleIn,
-  viewport,
-  transition,
-  ease,
-} from '../animations/motion'
+import Icon from './Icon'
+import { gsap, useGSAP, motionOK, onEnter } from '../animations/gsap'
 
 export default function Contact() {
   const { t } = useTranslation()
-  const isRtl = useRtl()
   const [submitted, setSubmitted] = useState(false)
+  const rootRef = useRef(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setSubmitted(true)
   }
 
-  const slideInOpposite = isRtl ? slideFromStart(isRtl) : slideFromEnd(isRtl)
+  // Scroll entrance
+  useGSAP(
+    () => {
+      if (!motionOK()) return
+      const dir = document.documentElement.dir === 'rtl' ? -1 : 1
+
+      gsap
+        .timeline({ scrollTrigger: onEnter('.contact__grid', 'top 80%') })
+        .from('.contact__details li', { x: -50 * dir, autoAlpha: 0, duration: 0.9, stagger: 0.12 })
+        .from(
+          '.contact__icon',
+          { scale: 0, rotation: -90 * dir, duration: 0.7, ease: 'back.out(2.2)', stagger: 0.12 },
+          0.25
+        )
+        .from('.contact__form', { x: 60 * dir, autoAlpha: 0, duration: 1.1, ease: 'power4.out' }, 0.1)
+        .from('.contact__fields > *', { y: 22, autoAlpha: 0, duration: 0.7, stagger: 0.07 }, 0.45)
+    },
+    { scope: rootRef }
+  )
+
+  // Success state: check badge pops, tick draws itself
+  useGSAP(
+    () => {
+      if (!submitted || !motionOK()) return
+      gsap
+        .timeline()
+        .from('.contact__success-icon', { scale: 0, rotation: -120, duration: 0.9, ease: 'elastic.out(1, 0.55)' })
+        .from('.contact__success-icon path', { strokeDasharray: 30, strokeDashoffset: 30, duration: 0.5, ease: 'power2.out' }, 0.25)
+        .from('.contact__success-text', { y: 14, autoAlpha: 0, duration: 0.6 }, 0.35)
+    },
+    { scope: rootRef, dependencies: [submitted] }
+  )
 
   return (
-    <section id="contact" className="contact section">
+    <section id="contact" className="contact section" ref={rootRef}>
       <div className="container">
         <SectionHeader
           label={t('contact.label')}
@@ -36,62 +57,52 @@ export default function Contact() {
         />
 
         <div className="contact__grid">
-          <motion.ul
-            className="contact__details"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewport}
-            variants={staggerContainer}
-          >
+          <ul className="contact__details">
             {[
-              { strong: t('contact.phone'), content: <a href="tel:+22200000000">+222 22 02 02 02</a> },
-              { strong: t('contact.hours'), content: <span>{t('contact.hoursValue')}</span> },
-              { strong: t('contact.address'), content: <span>{t('contact.address')}</span> },
-            ].map((item, i) => (
-              <motion.li key={i} variants={fadeUpSoft} transition={{ ...transition, delay: i * 0.1 }}>
-                <strong>{item.strong}</strong>
-                {item.content}
-              </motion.li>
+              {
+                icon: 'phone',
+                strong: t('contact.phone'),
+                content: (
+                  <a href="tel:+22222020202" dir="ltr">
+                    +222 22 02 02 02
+                  </a>
+                ),
+              },
+              { icon: 'clock', strong: t('contact.hours'), content: <span>{t('contact.hoursValue')}</span> },
+              { icon: 'pin', strong: t('contact.addressLabel'), content: <span>{t('contact.address')}</span> },
+            ].map((item) => (
+              <li key={item.icon}>
+                <span className="contact__icon">
+                  <Icon name={item.icon} size={20} />
+                </span>
+                <div>
+                  <strong>{item.strong}</strong>
+                  {item.content}
+                </div>
+              </li>
             ))}
-          </motion.ul>
+          </ul>
 
-          <motion.form
-            className="contact__form"
-            onSubmit={handleSubmit}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewport}
-            variants={slideInOpposite}
-            transition={{ duration: 0.9, ease }}
-          >
+          <form className="contact__form" onSubmit={handleSubmit}>
             {submitted ? (
-              <motion.p
-                className="contact__success"
-                role="status"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-              >
-                ✓ {t('contact.form.submit')}
-              </motion.p>
+              <div className="contact__success" role="status">
+                <span className="contact__success-icon">
+                  <Icon name="check" size={28} strokeWidth={2} />
+                </span>
+                <span className="contact__success-text">{t('contact.form.submit')}</span>
+              </div>
             ) : (
-              <motion.div
-                className="contact__fields"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewport}
-              >
+              <div className="contact__fields">
                 {[
                   { type: 'text', name: 'name', label: t('contact.form.name'), required: true },
                   { type: 'email', name: 'email', label: t('contact.form.email'), required: true },
                 ].map((field) => (
-                  <motion.label key={field.name} variants={fadeUpSoft} transition={transition}>
+                  <label key={field.name}>
                     <span>{field.label}</span>
                     <input type={field.type} name={field.name} required={field.required} />
-                  </motion.label>
+                  </label>
                 ))}
-                <motion.div className="contact__row" variants={fadeUpSoft} transition={transition}>
+                <div className="contact__row">
                   <label>
                     <span>{t('contact.form.guests')}</span>
                     <input type="number" name="guests" min="1" max="50" defaultValue="2" />
@@ -100,24 +111,19 @@ export default function Contact() {
                     <span>{t('contact.form.date')}</span>
                     <input type="date" name="date" required />
                   </label>
-                </motion.div>
-                <motion.label variants={fadeUpSoft} transition={transition}>
+                </div>
+                <label>
                   <span>{t('contact.form.message')}</span>
                   <textarea name="message" rows={4} />
-                </motion.label>
-                <motion.button
-                  type="submit"
-                  className="btn btn--gold btn--full"
-                  variants={scaleIn}
-                  transition={{ ...transition, delay: 0.2 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {t('contact.form.submit')}
-                </motion.button>
-              </motion.div>
+                </label>
+                <div>
+                  <button type="submit" className="btn btn--gold btn--full">
+                    {t('contact.form.submit')}
+                  </button>
+                </div>
+              </div>
             )}
-          </motion.form>
+          </form>
         </div>
       </div>
     </section>

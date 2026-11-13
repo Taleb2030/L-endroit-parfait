@@ -1,105 +1,108 @@
+import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
 import SectionHeader from './SectionHeader'
-import {
-  imageReveal,
-  fadeUpSoft,
-  staggerContainer,
-  viewport,
-  transition,
-  ease,
-} from '../animations/motion'
-
+import Icon from './Icon'
+import { gsap, useGSAP, motionOK, onEnter } from '../animations/gsap'
 import { assetUrl } from '../utils/assetUrl'
 
 const PHOTO = assetUrl('assets/restaurant.jpg')
 
+const STATS = [
+  { key: 'seats', icon: 'seats' },
+  { key: 'families', icon: 'heart' },
+  { key: 'events', icon: 'sparkle' },
+]
+
 export default function About() {
   const { t } = useTranslation()
+  const rootRef = useRef(null)
 
-  const stats = [
-    { key: 'seats', icon: '◆' },
-    { key: 'families', icon: '♥' },
-    { key: 'events', icon: '✦' },
-  ]
+  useGSAP(
+    () => {
+      if (!motionOK()) return
+      const dir = document.documentElement.dir === 'rtl' ? -1 : 1
+
+      // Photo: curtain reveal, zoom settle, then a light sweep
+      gsap
+        .timeline({ scrollTrigger: onEnter('.about__grid', 'top 78%') })
+        .from('.about__frame', {
+          clipPath: 'inset(100% 0% 0% 0% round 28px)',
+          duration: 1.4,
+          ease: 'power4.inOut',
+        })
+        .from('.about__image', { scale: 1.4, duration: 1.8, ease: 'power3.out' }, 0.1)
+        .fromTo(
+          '.about__image-shine',
+          { x: 0, xPercent: -120, autoAlpha: 1 },
+          { x: 0, xPercent: 260, duration: 1.4, ease: 'power2.inOut' },
+          0.9
+        )
+        .set('.about__image-shine', { autoAlpha: 0 })
+        .from('.about__accent', { scale: 0.4, rotation: -25 * dir, autoAlpha: 0, duration: 1, ease: 'back.out(1.6)' }, 0.8)
+
+      // Text and stat pills
+      gsap
+        .timeline({ scrollTrigger: onEnter('.about__text', 'top 80%') })
+        .from('.about__p', { y: 34, autoAlpha: 0, duration: 1, stagger: 0.15 })
+        .from(
+          '.about__stats li',
+          { y: 24, scale: 0.85, autoAlpha: 0, duration: 0.7, ease: 'back.out(2)', stagger: 0.1 },
+          '-=0.5'
+        )
+
+      // Slow parallax on the photo while scrolling
+      gsap.fromTo(
+        '.about__parallax',
+        { yPercent: -6 },
+        {
+          yPercent: 6,
+          ease: 'none',
+          scrollTrigger: { trigger: '.about__frame', start: 'top bottom', end: 'bottom top', scrub: true },
+        }
+      )
+    },
+    { scope: rootRef }
+  )
 
   return (
-    <section id="about" className="about section">
+    <section id="about" className="about section" ref={rootRef}>
       <div className="container">
         <SectionHeader label={t('about.label')} title={t('about.title')} />
 
         <div className="about__grid">
-          <motion.div
-            className="about__image-wrap"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewport}
-            variants={imageReveal}
-            transition={{ duration: 0.95, ease }}
-          >
-            <motion.div
-              className="about__frame"
-              initial={{ scale: 1.12 }}
-              whileInView={{ scale: 1 }}
-              viewport={viewport}
-              transition={{ duration: 1.1, ease, delay: 0.1 }}
-            >
-              <img
-                src={PHOTO}
-                alt="L'endroit_parfait restaurant"
-                className="about__image"
-                onError={(e) => {
-                  e.target.style.display = 'none'
-                }}
-              />
+          <div className="about__image-wrap">
+            <div className="about__frame">
+              <div className="about__parallax">
+                <img
+                  src={PHOTO}
+                  alt="L'endroit_parfait restaurant"
+                  className="about__image"
+                  onError={(e) => {
+                    e.target.style.display = 'none'
+                  }}
+                />
+              </div>
               <div className="about__image-fallback" aria-hidden />
-              <motion.div
-                className="about__image-shine"
-                initial={{ x: '-100%' }}
-                whileInView={{ x: '120%' }}
-                viewport={viewport}
-                transition={{ duration: 1.4, ease, delay: 0.35 }}
-                aria-hidden
-              />
-            </motion.div>
-            <motion.div
-              className="about__accent"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 0.5, scale: 1 }}
-              viewport={viewport}
-              transition={{ duration: 0.7, ease, delay: 0.4 }}
-              aria-hidden
-            />
-          </motion.div>
+              <div className="about__image-shine" aria-hidden />
+            </div>
+            <div className="about__accent" aria-hidden />
+          </div>
 
-          <motion.div
-            className="about__text"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewport}
-            variants={staggerContainer}
-          >
-            <motion.p className="about__p" variants={fadeUpSoft} transition={transition}>
-              {t('about.p1')}
-            </motion.p>
-            <motion.p className="about__p" variants={fadeUpSoft} transition={transition}>
-              {t('about.p2')}
-            </motion.p>
+          <div className="about__text">
+            <p className="about__p">{t('about.p1')}</p>
+            <p className="about__p">{t('about.p2')}</p>
 
-            <motion.ul className="about__stats" variants={staggerContainer}>
-              {stats.map(({ key, icon }, i) => (
-                <motion.li
-                  key={key}
-                  variants={fadeUpSoft}
-                  transition={{ ...transition, delay: i * 0.08 }}
-                  whileHover={{ y: -3, transition: { duration: 0.25 } }}
-                >
-                  <span className="about__stat-icon">{icon}</span>
+            <ul className="about__stats">
+              {STATS.map(({ key, icon }) => (
+                <li key={key}>
+                  <span className="about__stat-icon">
+                    <Icon name={icon} size={18} />
+                  </span>
                   <span>{t(`about.stats.${key}`)}</span>
-                </motion.li>
+                </li>
               ))}
-            </motion.ul>
-          </motion.div>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

@@ -6,7 +6,9 @@
     "experience": "Experience",
     "contact": "Contact",
     "reserve": "Reserve a Table",
-    "language": "Language"
+    "language": "Language",
+    "menu": "Menu",
+    "close": "Close menu"
   },
   "hero": {
     "tagline": "Refined Elegance & Culinary Excellence",
@@ -29,7 +31,20 @@
   "gallery": {
     "label": "Gallery",
     "title": "Visual Poetry at L'endroit_parfait",
-    "subtitle": "Glimpses of our refined atmosphere — the artistry of cuisine, moments of celebration, and the magic of impeccable service."
+    "subtitle": "Glimpses of our refined atmosphere — the artistry of cuisine, moments of celebration, and the magic of impeccable service.",
+    "items": [
+      "Signature Plates",
+      "Around the Table",
+      "Evenings at L'endroit"
+    ],
+    "carousel": "Video gallery",
+    "play": "Play video",
+    "pause": "Pause video",
+    "prev": "Previous video",
+    "next": "Next video",
+    "slide": "Video {{current}} of {{total}}",
+    "goTo": "Show video {{n}}: {{title}}",
+    "swipe": "Swipe to explore"
   },
   "experience": {
     "label": "The Experience",
@@ -71,7 +86,8 @@
       "date": "Preferred date",
       "message": "Special requests",
       "submit": "Send Request"
-    }
+    },
+    "addressLabel": "Address"
   },
   "media": {
     "soundOn": "Turn sound on",

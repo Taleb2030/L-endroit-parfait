@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import Icon from './Icon'
 
 const LANGUAGES = [
-  { code: 'en', label: 'English', short: 'EN', flag: '🇬🇧' },
-  { code: 'fr', label: 'Français', short: 'FR', flag: '🇫🇷' },
-  { code: 'ar', label: 'العربية', short: 'ع', flag: '🇲🇷' },
+  { code: 'en', label: 'English', short: 'EN' },
+  { code: 'fr', label: 'Français', short: 'FR' },
+  { code: 'ar', label: 'العربية', short: 'ع' },
 ]
 
 export default function LanguageSwitcher() {
@@ -18,18 +19,19 @@ export default function LanguageSwitcher() {
   useEffect(() => {
     if (!open) return
 
-    const close = (e) => {
-      if (rootRef.current && !rootRef.current.contains(e.target)) {
-        setOpen(false)
-      }
+    const onPointer = (e) => {
+      if (rootRef.current && !rootRef.current.contains(e.target)) setOpen(false)
+    }
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false)
     }
 
-    document.addEventListener('pointerdown', close)
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setOpen(false)
-    })
-
-    return () => document.removeEventListener('pointerdown', close)
+    document.addEventListener('pointerdown', onPointer)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('pointerdown', onPointer)
+      document.removeEventListener('keydown', onKey)
+    }
   }, [open])
 
   const selectLanguage = (code) => {
@@ -47,29 +49,35 @@ export default function LanguageSwitcher() {
         aria-haspopup="listbox"
         aria-label={t('nav.language')}
       >
-        <span className="lang-dropdown__flag" aria-hidden>
-          {current.flag}
-        </span>
+        <Icon name="globe" size={16} className="lang-dropdown__globe" />
         <span className="lang-dropdown__current">{current.label}</span>
-        <span className={`lang-dropdown__chevron ${open ? 'lang-dropdown__chevron--open' : ''}`} aria-hidden>
-          ▾
-        </span>
+        <Icon
+          name="chevronDown"
+          size={14}
+          className={`lang-dropdown__chevron ${open ? 'lang-dropdown__chevron--open' : ''}`}
+        />
       </button>
 
       {open && (
         <ul className="lang-dropdown__menu" role="listbox" aria-label={t('nav.language')}>
-          {LANGUAGES.map(({ code, label, flag }) => (
-            <li key={code} role="option" aria-selected={i18n.language?.startsWith(code)}>
-              <button
-                type="button"
-                className={i18n.language?.startsWith(code) ? 'active' : ''}
-                onClick={() => selectLanguage(code)}
-              >
-                <span className="lang-dropdown__menu-flag">{flag}</span>
-                <span>{label}</span>
-              </button>
-            </li>
-          ))}
+          {LANGUAGES.map(({ code, label, short }) => {
+            const active = i18n.language?.startsWith(code)
+            return (
+              <li key={code} role="option" aria-selected={active}>
+                <button
+                  type="button"
+                  className={active ? 'active' : ''}
+                  onClick={() => selectLanguage(code)}
+                >
+                  <span className="lang-dropdown__code" aria-hidden>
+                    {short}
+                  </span>
+                  <span>{label}</span>
+                  {active && <Icon name="check" size={16} className="lang-dropdown__check" />}
+                </button>
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>

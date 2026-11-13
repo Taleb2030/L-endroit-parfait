@@ -1,58 +1,82 @@
 import { useState, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
 import Logo from './Logo'
-import { ease } from '../animations/motion'
+import Icon from './Icon'
+import { gsap, useGSAP, motionOK } from '../animations/gsap'
 import { assetUrl } from '../utils/assetUrl'
 
 const HERO_VIDEO = assetUrl('assets/videos/video1.mp4')
 
-const heroStagger = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.15 },
-  },
-}
-
-const heroItem = {
-  hidden: { opacity: 0, y: 32, filter: 'blur(12px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.9, ease },
-  },
-}
-
-const heroLogo = {
-  hidden: { opacity: 0, y: 20, scale: 0.88, filter: 'blur(8px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: 'blur(0px)',
-    transition: { duration: 1, ease },
-  },
-}
-
 export default function Hero() {
   const { t } = useTranslation()
+  const rootRef = useRef(null)
   const videoRef = useRef(null)
   const [useVideo, setUseVideo] = useState(true)
+  const [videoPaused, setVideoPaused] = useState(() => !motionOK())
+
+  const title = t('hero.title')
+
+  useGSAP(
+    () => {
+      if (!motionOK()) return
+
+      // Intro sequence
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      tl.from('.hero__media', { scale: 1.25, autoAlpha: 0, duration: 2, ease: 'power2.out' })
+        .from('.hero__logo-stage', { scale: 0.5, rotation: -12, autoAlpha: 0, duration: 1.1, ease: 'back.out(1.8)' }, 0.35)
+        .from(
+          '.hero__tagline',
+          {
+            y: 14,
+            autoAlpha: 0,
+            duration: 1,
+            // Widening letters would break joined Arabic script
+            ...(document.documentElement.dir === 'rtl' ? {} : { letterSpacing: '0.5em' }),
+          },
+          0.7
+        )
+        .from('.hero__char', {
+          yPercent: 120,
+          rotationX: -90,
+          autoAlpha: 0,
+          duration: 1.1,
+          ease: 'power4.out',
+          stagger: 0.035,
+        }, 0.85)
+        .from('.hero__subtitle', { y: 26, autoAlpha: 0, duration: 1 }, 1.25)
+        .from('.hero__actions', { y: 24, autoAlpha: 0, duration: 0.9 }, 1.45)
+        .from('.hero__scroll, .hero__pause', { autoAlpha: 0, duration: 0.8 }, 1.8)
+        // Gentle float after the logo lands
+        .to('.hero__logo-stage', { y: -7, duration: 2.6, ease: 'sine.inOut', repeat: -1, yoyo: true }, 1.5)
+
+      // Parallax while scrolling out of the hero
+      const scrollTrigger = { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: true }
+      gsap.to('.hero__video, .hero__fallback', { yPercent: 18, scale: 1.08, ease: 'none', scrollTrigger })
+      gsap.to('.hero__content', { y: -90, autoAlpha: 0, ease: 'none', scrollTrigger: { ...scrollTrigger, end: '75% top' } })
+    },
+    { scope: rootRef }
+  )
+
+  const toggleVideo = () => {
+    const video = videoRef.current
+    if (!video) return
+    if (video.paused) {
+      video.play().catch(() => {})
+      setVideoPaused(false)
+    } else {
+      video.pause()
+      setVideoPaused(true)
+    }
+  }
 
   return (
-    <section id="home" className="hero">
-      <motion.div
-        className="hero__media"
-        initial={{ scale: 1.08, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.4, ease }}
-      >
+    <section id="home" className="hero" ref={rootRef}>
+      <div className="hero__media">
         {useVideo ? (
           <video
             ref={videoRef}
             className="hero__video"
-            autoPlay
+            autoPlay={!videoPaused}
             muted
             loop
             playsInline
@@ -64,59 +88,46 @@ export default function Hero() {
         <div className={`hero__fallback ${useVideo ? '' : 'hero__fallback--visible'}`} aria-hidden />
         <div className="hero__overlay" />
         <div className="hero__grain" aria-hidden />
-      </motion.div>
+      </div>
 
-      <motion.div
-        className="hero__content container"
-        variants={heroStagger}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div className="hero__logo-stage" variants={heroLogo}>
+      <div className="hero__content container">
+        <div className="hero__logo-stage">
           <Logo className="hero__logo" variant="hero" />
-        </motion.div>
+        </div>
 
-        <motion.p className="hero__tagline" variants={heroItem}>
-          {t('hero.tagline')}
-        </motion.p>
-        <motion.h1 className="hero__title" variants={heroItem}>
-          {t('hero.title')}
-        </motion.h1>
-        <motion.p className="hero__subtitle" variants={heroItem}>
-          {t('hero.subtitle')}
-        </motion.p>
-        <motion.div className="hero__actions" variants={heroItem}>
-          <motion.a
-            href="#contact"
-            className="btn btn--gold btn--lg"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.25 }}
-          >
+        <p className="hero__tagline">{t('hero.tagline')}</p>
+        <h1 className="hero__title" aria-label={title}>
+          {[...title].map((char, i) => (
+            <span className="hero__char" key={`${i}-${char}`} aria-hidden>
+              {char}
+            </span>
+          ))}
+        </h1>
+        <p className="hero__subtitle">{t('hero.subtitle')}</p>
+        <div className="hero__actions">
+          <a href="#contact" className="btn btn--gold btn--lg">
             {t('hero.cta')}
-          </motion.a>
-          <motion.a
-            href="#about"
-            className="btn btn--outline"
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.25 }}
-          >
+          </a>
+          <a href="#about" className="btn btn--outline">
             {t('hero.scroll')}
-          </motion.a>
-        </motion.div>
-      </motion.div>
+          </a>
+        </div>
+      </div>
 
-      <motion.a
-        href="#about"
-        className="hero__scroll"
-        aria-label={t('hero.scroll')}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-      >
+      {useVideo && (
+        <button
+          type="button"
+          className="hero__pause"
+          onClick={toggleVideo}
+          aria-label={videoPaused ? t('gallery.play') : t('gallery.pause')}
+        >
+          <Icon name={videoPaused ? 'play' : 'pause'} size={16} />
+        </button>
+      )}
+
+      <a href="#about" className="hero__scroll" aria-label={t('hero.scroll')}>
         <span className="hero__scroll-line" />
-      </motion.a>
+      </a>
     </section>
   )
 }
