@@ -17,28 +17,20 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
+      # Build for https://taleb2030.github.io/L-endroit-parfait/
+      # (postbuild also copies index.html to 404.html for SPA routing)
       - name: Build
         run: npm run build
+        env:
+          VITE_BASE: /L-endroit-parfait/
 
       - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-
-      - run: npm ci
-      - run: npm run build
-
-      - name: Add SPA fallback for GitHub Pages
-        run: cp dist/index.html dist/404.html
-
-      - name: Deploy dist to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

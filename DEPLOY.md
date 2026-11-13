@@ -73,7 +73,7 @@ Every `git push` can auto-update the live site.
 
 ## GitHub Pages (your link)
 
-URL: [https://taleb2030.github.io/nouakchott-night/](https://taleb2030.github.io/nouakchott-night/)
+URL: [https://taleb2030.github.io/L-endroit-parfait/](https://taleb2030.github.io/L-endroit-parfait/)
 
 1. Repo **Settings** → **Pages**
 2. **Build and deployment** → Source: **Deploy from a branch**
