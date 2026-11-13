@@ -1,25 +1,33 @@
 /* L'endroit_parfait — design tokens
-   "Oasis Night" palette: deep emerald night + saffron gold + a coral spark.
-   (Token names kept as --gold-* so every component picks the new colours up.) */
+   "Bordeaux & Ivory" palette: charcoal night, deep wine red, ivory, soft rose.
+   All text pairs checked against WCAG AA (most pass AAA).
+   Legacy token names (--gold-*) are kept so every component picks the
+   new colours up — they now hold the ROSE highlight, not gold:
+     --color-gold*   = rose highlight for text/icons/lines on dark (8.3:1)
+     --color-brand   = wine red for filled buttons & active states (white text 7.3:1) */
 :root {
   color-scheme: dark;
-  --bg-rgb: 6, 20, 18;
-  --gold-rgb: 240, 180, 76;
-  --gold-light-rgb: 247, 206, 128;
-  --accent-rgb: 238, 128, 98;
-  --cream-rgb: 245, 240, 230;
-  --color-bg: #061412;
-  --color-bg-elevated: #0a1d1a;
-  --color-surface: #0f2723;
-  --color-gold: #f0b44c;
-  --color-gold-light: #f7ce80;
-  --color-gold-pale: #fbe7bf;
-  --color-gold-deep: #c4862a;
-  --color-on-gold: #1c1305;
-  --color-cream: #f5f0e6;
-  --color-muted: #a3b8b0;
-  --color-accent: #ee8062;
-  --surface-fallback: linear-gradient(135deg, #0f2a25 0%, #061412 50%, #13261f 100%);
+  --bg-rgb: 15, 12, 14;
+  --gold-rgb: 232, 145, 159;
+  --gold-light-rgb: 242, 184, 193;
+  --accent-rgb: 159, 43, 64;
+  --brand-rgb: 159, 43, 64;
+  --cream-rgb: 244, 239, 234;
+  --color-bg: #0f0c0e;
+  --color-bg-elevated: #161215;
+  --color-surface: #1e181c;
+  --color-gold: #e8919f;
+  --color-gold-light: #f2b8c1;
+  --color-gold-pale: #fadde2;
+  --color-gold-deep: #9f2b40;
+  --color-brand: #9f2b40;
+  --color-brand-hover: #b8374e;
+  --brand-fill: linear-gradient(135deg, #b8374e 0%, #9f2b40 55%, #7e1f31 100%);
+  --color-on-gold: #ffffff;
+  --color-cream: #f4efea;
+  --color-muted: #b3a7ac;
+  --color-accent: #c64a60;
+  --surface-fallback: linear-gradient(135deg, #24161b 0%, #0f0c0e 50%, #1d1418 100%);
   --wa-rgb: 37, 211, 102;
   --color-wa: #25d366;
   --color-border: rgba(var(--gold-rgb), 0.16);
@@ -31,7 +39,7 @@
   --radius: 12px;
   --radius-lg: 20px;
   --radius-xl: 28px;
-  --shadow-gold: 0 8px 40px rgba(var(--gold-rgb), 0.22);
+  --shadow-gold: 0 8px 40px rgba(var(--brand-rgb), 0.35);
   --shadow-soft: 0 24px 64px rgba(0, 0, 0, 0.5);
   --glow-gold: 0 0 48px rgba(var(--gold-light-rgb), 0.35);
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -56,7 +64,7 @@ body {
   font-family: var(--font-body);
   background:
     radial-gradient(ellipse 120% 90% at 50% -10%, rgba(var(--gold-rgb), 0.09), transparent 50%),
-    linear-gradient(180deg, #061412 0%, #081a17 100%),
+    linear-gradient(180deg, #0f0c0e 0%, #130f12 100%),
     var(--color-bg);
   color: var(--color-cream);
   line-height: 1.65;
@@ -210,7 +218,7 @@ ul {
 }
 
 .btn--gold {
-  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-gold-deep) 100%);
+  background: var(--brand-fill);
   color: var(--color-on-gold);
   box-shadow: 
     var(--shadow-gold),
@@ -369,8 +377,8 @@ ul {
 
 .lang-dropdown__menu button.active .lang-dropdown__code {
   color: var(--color-on-gold);
-  background: var(--color-gold);
-  border-color: var(--color-gold);
+  background: var(--color-brand);
+  border-color: var(--color-brand-hover);
 }
 
 .lang-dropdown__check {
@@ -649,7 +657,7 @@ ul {
   font-size: clamp(3rem, 10vw, 5.5rem);
   font-weight: 600;
   line-height: 1.05;
-  background: linear-gradient(180deg, #fff 0%, var(--color-cream) 60%, var(--color-gold-light) 100%);
+  background: linear-gradient(180deg, #fff 0%, var(--color-cream) 60%, #e7dcd6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1129,13 +1137,13 @@ html {
 
 /* Gold button — one coherent champagne gradient */
 .btn--gold {
-  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 55%, var(--color-gold-deep) 100%);
-  box-shadow: 0 8px 28px rgba(var(--gold-rgb), 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  background: var(--brand-fill);
+  box-shadow: 0 8px 28px rgba(var(--brand-rgb), 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .btn--gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 40px rgba(var(--gold-rgb), 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 14px 40px rgba(var(--brand-rgb), 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .btn--outline {
@@ -1501,9 +1509,9 @@ html {
 
 .menu__tab.is-active {
   color: var(--color-on-gold);
-  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
-  border-color: var(--color-gold);
-  box-shadow: 0 6px 22px rgba(var(--gold-rgb), 0.28);
+  background: var(--brand-fill);
+  border-color: var(--color-brand-hover);
+  box-shadow: 0 6px 22px rgba(var(--brand-rgb), 0.45);
 }
 
 .menu__board {
@@ -1820,8 +1828,8 @@ html {
 
 .vslider__icon-btn.is-on {
   color: var(--color-on-gold);
-  background: var(--color-gold);
-  border-color: var(--color-gold);
+  background: var(--color-brand);
+  border-color: var(--color-brand-hover);
 }
 
 .vslider__big-play {
@@ -1836,7 +1844,7 @@ html {
   height: 76px;
   padding-inline-start: 4px;
   color: var(--color-on-gold);
-  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+  background: var(--brand-fill);
   border-radius: 50%;
   box-shadow: 0 0 0 10px rgba(var(--gold-rgb), 0.18), var(--shadow-gold);
   transform: translate(-50%, -50%);
@@ -1906,8 +1914,8 @@ html {
 
 .vslider__arrow:hover {
   color: var(--color-on-gold);
-  background: var(--color-gold);
-  border-color: var(--color-gold);
+  background: var(--color-brand);
+  border-color: var(--color-brand-hover);
   transform: scale(1.05);
 }
 
@@ -2033,7 +2041,7 @@ html {
 
 .hero__char {
   display: inline-block;
-  background: linear-gradient(180deg, #fff 0%, var(--color-cream) 55%, var(--color-gold-light) 100%);
+  background: linear-gradient(180deg, #fff 0%, var(--color-cream) 55%, #e7dcd6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -2185,7 +2193,7 @@ html {
 
 .gallery {
   background:
-    radial-gradient(ellipse 80% 60% at 50% 60%, rgba(26, 92, 80, 0.35), transparent 75%),
+    radial-gradient(ellipse 80% 60% at 50% 60%, rgba(var(--brand-rgb), 0.22), transparent 75%),
     var(--color-bg);
 }
 
