@@ -8,6 +8,7 @@
     "reserve": "Réserver",
     "language": "Langue",
     "menu": "Menu",
+    "foodMenu": "La Carte",
     "close": "Fermer le menu"
   },
   "hero": {
@@ -15,7 +16,52 @@
     "title": "L'endroit_parfait",
     "subtitle": "Un sanctuaire exclusif pour les convives exigeants — où la gastronomie rencontre la sophistication, et chaque moment devient une expérience inoubliable.",
     "cta": "Réserver votre table",
-    "scroll": "Découvrir Plus"
+    "scroll": "Découvrir Plus",
+    "menuCta": "Voir la carte"
+  },
+  "menu": {
+    "label": "La Carte",
+    "title": "Saveurs de Mauritanie & d'ailleurs",
+    "subtitle": "Des plats de saison préparés chaque jour. Demandez à notre équipe les suggestions du jour.",
+    "currency": "MRU",
+    "orderText": "Envie de réserver ou d'une question sur un plat ? Nous répondons sur WhatsApp.",
+    "orderCta": "Demander sur WhatsApp",
+    "orderMessage": "Bonjour L'endroit_parfait ! J'ai une question sur votre carte.",
+    "categories": [
+      {
+        "title": "Entrées",
+        "items": [
+          { "name": "Soupe Harira", "desc": "Soupe mijotée de tomate, lentilles et pois chiches aux herbes fraîches.", "price": "250" },
+          { "name": "Bouchées de Pastilla", "desc": "Feuilleté croustillant au poulet épicé et aux amandes.", "price": "350" },
+          { "name": "Salade du Jardin", "desc": "Jeunes pousses de saison, avocat, vinaigrette aux agrumes.", "price": "300" }
+        ]
+      },
+      {
+        "title": "Plats",
+        "items": [
+          { "name": "Thieboudienne", "desc": "Le classique mauritanien : riz, poisson frais et légumes en sauce tomate.", "price": "700" },
+          { "name": "Méchoui d'Agneau", "desc": "Épaule d'agneau rôtie lentement aux épices, servie avec couscous.", "price": "950" },
+          { "name": "Poisson du Jour Grillé", "desc": "Poisson de l'Atlantique du port de Nouakchott, beurre citronné, légumes grillés.", "price": "850" },
+          { "name": "Tajine de Poulet", "desc": "Citron confit, olives et safran.", "price": "650" }
+        ]
+      },
+      {
+        "title": "Desserts",
+        "items": [
+          { "name": "Tarte Dattes & Amandes", "desc": "Dattes de l'Adrar sur pâte sablée.", "price": "300" },
+          { "name": "Fondant au Chocolat", "desc": "Cœur coulant, glace vanille.", "price": "350" },
+          { "name": "Assiette de Fruits Frais", "desc": "Sélection de fruits de saison.", "price": "250" }
+        ]
+      },
+      {
+        "title": "Boissons",
+        "items": [
+          { "name": "Thé à la Menthe (Atay)", "desc": "Servi en trois verres, selon la tradition.", "price": "150" },
+          { "name": "Jus Frais", "desc": "Orange, mangue, bissap ou bouye.", "price": "200" },
+          { "name": "Zrig", "desc": "Boisson lactée fraîche, légèrement sucrée.", "price": "150" }
+        ]
+      }
+    ]
   },
   "about": {
     "label": "Notre Héritage",
@@ -72,22 +118,27 @@
     }
   },
   "contact": {
-    "label": "Nous trouver",
-    "title": "Réservez votre table",
-    "subtitle": "Nous avons hâte de vous accueillir, vous et vos proches.",
+    "label": "Contactez-nous",
+    "title": "Réservez votre table en un message",
+    "subtitle": "Pas de formulaire, pas d'attente. Envoyez-nous un message WhatsApp et notre équipe confirme votre réservation directement.",
     "phone": "Téléphone",
     "hours": "Horaires",
     "hoursValue": "Tous les jours · 12h00 – 00h00",
     "address": "Nouakchott, Mauritanie",
-    "form": {
-      "name": "Votre nom",
-      "email": "E-mail",
-      "guests": "Convives",
-      "date": "Date souhaitée",
-      "message": "Demandes spéciales",
-      "submit": "Envoyer"
-    },
-    "addressLabel": "Adresse"
+    "addressLabel": "Adresse",
+    "wa": {
+      "title": "Réserver sur WhatsApp",
+      "text": "Appuyez sur le bouton — WhatsApp s'ouvre avec votre message déjà prêt.",
+      "steps": [
+        "Appuyez sur « Écrivez-nous sur WhatsApp »",
+        "Indiquez la date, l'heure et le nombre de convives",
+        "Nous confirmons votre table en quelques minutes"
+      ],
+      "cta": "Écrivez-nous sur WhatsApp",
+      "note": "Nous répondons tous les jours de 12h00 à 00h00.",
+      "float": "Discuter sur WhatsApp",
+      "message": "Bonjour L'endroit_parfait ! Je souhaite réserver une table.\nDate : \nHeure : \nNombre de convives : "
+    }
   },
   "media": {
     "soundOn": "Activer le son",

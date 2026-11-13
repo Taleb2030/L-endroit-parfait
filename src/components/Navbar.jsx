@@ -2,12 +2,15 @@ import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
 import Logo from './Logo'
-import { gsap, useGSAP, motionOK } from '../animations/gsap'
+import { gsap, ScrollTrigger, useGSAP, motionOK } from '../animations/gsap'
+
+const SECTION_IDS = ['home', 'about', 'menu', 'gallery', 'experience', 'contact']
 
 export default function Navbar() {
   const { t } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [current, setCurrent] = useState('#home')
   const rootRef = useRef(null)
   const menuTl = useRef(null)
 
@@ -27,6 +30,7 @@ export default function Navbar() {
   const links = [
     { href: '#home', label: t('nav.home') },
     { href: '#about', label: t('nav.about') },
+    { href: '#menu', label: t('nav.foodMenu') },
     { href: '#gallery', label: t('nav.gallery') },
     { href: '#experience', label: t('nav.experience') },
     { href: '#contact', label: t('nav.contact') },
@@ -35,6 +39,18 @@ export default function Navbar() {
   useGSAP(
     () => {
       const animate = motionOK()
+
+      // Highlight the link of the section that's in the middle of the screen
+      SECTION_IDS.forEach((id) => {
+        const section = document.getElementById(id)
+        if (!section) return
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 50%',
+          end: 'bottom 50%',
+          onToggle: (self) => self.isActive && setCurrent(`#${id}`),
+        })
+      })
 
       // Page scroll progress — thin gold line under the navbar
       gsap.fromTo(
@@ -91,7 +107,13 @@ export default function Navbar() {
         <ul className="navbar__links">
           {links.map((link) => (
             <li key={link.href}>
-              <a href={link.href}>{link.label}</a>
+              <a
+                href={link.href}
+                className={current === link.href ? 'is-active' : undefined}
+                aria-current={current === link.href ? 'location' : undefined}
+              >
+                {link.label}
+              </a>
             </li>
           ))}
         </ul>
@@ -118,7 +140,13 @@ export default function Navbar() {
 
       <div id="mobile-menu" className="navbar__mobile" inert={!menuOpen}>
         {links.map((link) => (
-          <a key={link.href} href={link.href} onClick={closeMenu}>
+          <a
+            key={link.href}
+            href={link.href}
+            onClick={closeMenu}
+            className={current === link.href ? 'is-active' : undefined}
+            aria-current={current === link.href ? 'location' : undefined}
+          >
             {link.label}
           </a>
         ))}

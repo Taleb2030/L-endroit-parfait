@@ -8,6 +8,7 @@
     "reserve": "Reserve a Table",
     "language": "Language",
     "menu": "Menu",
+    "foodMenu": "Menu",
     "close": "Close menu"
   },
   "hero": {
@@ -15,7 +16,52 @@
     "title": "L'endroit_parfait",
     "subtitle": "An exclusive sanctuary for discerning guests — where gastronomy meets sophistication, and every moment becomes an unforgettable experience.",
     "cta": "Reserve Your Table",
-    "scroll": "Discover More"
+    "scroll": "Discover More",
+    "menuCta": "View the Menu"
+  },
+  "menu": {
+    "label": "Our Menu",
+    "title": "Flavours of Mauritania & beyond",
+    "subtitle": "Seasonal dishes prepared fresh every day. Ask our team about today's specials.",
+    "currency": "MRU",
+    "orderText": "Want to reserve or ask about a dish? We answer on WhatsApp.",
+    "orderCta": "Ask on WhatsApp",
+    "orderMessage": "Hello L'endroit_parfait! I have a question about your menu.",
+    "categories": [
+      {
+        "title": "Starters",
+        "items": [
+          { "name": "Harira Soup", "desc": "Slow-cooked tomato, lentil and chickpea soup with fresh herbs.", "price": "250" },
+          { "name": "Pastilla Bites", "desc": "Crisp pastry filled with spiced chicken and almonds.", "price": "350" },
+          { "name": "Garden Salad", "desc": "Seasonal greens, avocado, citrus dressing.", "price": "300" }
+        ]
+      },
+      {
+        "title": "Main Dishes",
+        "items": [
+          { "name": "Thieboudienne", "desc": "Mauritania's classic: rice, fresh fish and vegetables in a rich tomato sauce.", "price": "700" },
+          { "name": "Méchoui Lamb", "desc": "Slow-roasted lamb shoulder with spices, served with couscous.", "price": "950" },
+          { "name": "Grilled Catch of the Day", "desc": "Atlantic fish from Nouakchott port, lemon butter, grilled vegetables.", "price": "850" },
+          { "name": "Chicken Tagine", "desc": "Preserved lemon, olives and saffron.", "price": "650" }
+        ]
+      },
+      {
+        "title": "Desserts",
+        "items": [
+          { "name": "Date & Almond Tart", "desc": "Sweet Adrar dates on a buttery crust.", "price": "300" },
+          { "name": "Chocolate Fondant", "desc": "Warm molten centre, vanilla ice cream.", "price": "350" },
+          { "name": "Fresh Fruit Plate", "desc": "Selection of the season's fruit.", "price": "250" }
+        ]
+      },
+      {
+        "title": "Drinks",
+        "items": [
+          { "name": "Mauritanian Mint Tea (Atay)", "desc": "Served in the traditional three rounds.", "price": "150" },
+          { "name": "Fresh Juices", "desc": "Orange, mango, bissap or baobab.", "price": "200" },
+          { "name": "Zrig", "desc": "Chilled, lightly sweetened milk drink.", "price": "150" }
+        ]
+      }
+    ]
   },
   "about": {
     "label": "Our Heritage",
@@ -72,22 +118,27 @@
     }
   },
   "contact": {
-    "label": "Visit Us",
-    "title": "Reserve your table",
-    "subtitle": "We look forward to welcoming you and your loved ones.",
+    "label": "Contact Us",
+    "title": "Book your table in one message",
+    "subtitle": "No forms, no waiting. Send us a WhatsApp message and our team will confirm your reservation directly.",
     "phone": "Phone",
     "hours": "Hours",
     "hoursValue": "Daily · 12:00 – 00:00",
     "address": "Nouakchott, Mauritania",
-    "form": {
-      "name": "Your name",
-      "email": "Email",
-      "guests": "Guests",
-      "date": "Preferred date",
-      "message": "Special requests",
-      "submit": "Send Request"
-    },
-    "addressLabel": "Address"
+    "addressLabel": "Address",
+    "wa": {
+      "title": "Reserve on WhatsApp",
+      "text": "Tap the button below — WhatsApp opens with your message ready to send.",
+      "steps": [
+        "Tap “Message us on WhatsApp”",
+        "Tell us the date, time and number of guests",
+        "We confirm your table within minutes"
+      ],
+      "cta": "Message us on WhatsApp",
+      "note": "We reply every day from 12:00 to 00:00.",
+      "float": "Chat with us on WhatsApp",
+      "message": "Hello L'endroit_parfait! I would like to reserve a table.\nDate: \nTime: \nNumber of guests: "
+    }
   },
   "media": {
     "soundOn": "Turn sound on",

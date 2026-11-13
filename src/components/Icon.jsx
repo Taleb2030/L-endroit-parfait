@@ -51,6 +51,18 @@ const PATHS = {
     </>
   ),
   check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
+  whatsapp: (
+    <>
+      <path d="M3.5 20.5l1.3-4.3A8.6 8.6 0 1 1 8 19.3l-4.5 1.2Z" />
+      <path d="M9.2 8.2c-.4 0-.9.5-.9 1.3 0 2.6 3.1 5.9 6 5.9.8 0 1.4-.6 1.4-1.1v-.6l-1.9-.9-.8.9a4.7 4.7 0 0 1-2.4-2.4l.8-.8-.8-2h-1.4Z" fill="currentColor" strokeWidth="0.8" />
+    </>
+  ),
+  menu: (
+    <>
+      <path d="M6 3v8a2 2 0 0 0 2 2v8M8 3v6M10 3v8a2 2 0 0 1-2 2" />
+      <path d="M17 21V3c-2 1.5-3 4-3 7v4h3" />
+    </>
+  ),
 }
 
 export default function Icon({ name, size = 20, className = '', strokeWidth = 1.6 }) {

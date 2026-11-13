@@ -1,18 +1,14 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import SectionHeader from './SectionHeader'
 import Icon from './Icon'
+import { PHONE_DISPLAY, PHONE_TEL, whatsappLink } from '../config/contact'
 import { gsap, useGSAP, motionOK, onEnter } from '../animations/gsap'
 
 export default function Contact() {
   const { t } = useTranslation()
-  const [submitted, setSubmitted] = useState(false)
   const rootRef = useRef(null)
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setSubmitted(true)
-  }
+  const waHref = whatsappLink(t('contact.wa.message'))
 
   // Scroll entrance
   useGSAP(
@@ -28,24 +24,14 @@ export default function Contact() {
           { scale: 0, rotation: -90 * dir, duration: 0.7, ease: 'back.out(2.2)', stagger: 0.12 },
           0.25
         )
-        .from('.contact__form', { x: 60 * dir, autoAlpha: 0, duration: 1.1, ease: 'power4.out' }, 0.1)
-        .from('.contact__fields > *', { y: 22, autoAlpha: 0, duration: 0.7, stagger: 0.07 }, 0.45)
+        .from('.contact__wa', { x: 60 * dir, autoAlpha: 0, duration: 1.1, ease: 'power4.out' }, 0.1)
+        .from('.contact__wa-icon', { scale: 0, rotation: -120, duration: 0.9, ease: 'elastic.out(1, 0.55)' }, 0.5)
+        .from('.contact__wa-body > *', { y: 22, autoAlpha: 0, duration: 0.7, stagger: 0.08 }, 0.55)
     },
     { scope: rootRef }
   )
 
-  // Success state: check badge pops, tick draws itself
-  useGSAP(
-    () => {
-      if (!submitted || !motionOK()) return
-      gsap
-        .timeline()
-        .from('.contact__success-icon', { scale: 0, rotation: -120, duration: 0.9, ease: 'elastic.out(1, 0.55)' })
-        .from('.contact__success-icon path', { strokeDasharray: 30, strokeDashoffset: 30, duration: 0.5, ease: 'power2.out' }, 0.25)
-        .from('.contact__success-text', { y: 14, autoAlpha: 0, duration: 0.6 }, 0.35)
-    },
-    { scope: rootRef, dependencies: [submitted] }
-  )
+  const steps = t('contact.wa.steps', { returnObjects: true })
 
   return (
     <section id="contact" className="contact section" ref={rootRef}>
@@ -60,11 +46,20 @@ export default function Contact() {
           <ul className="contact__details">
             {[
               {
+                icon: 'whatsapp',
+                strong: 'WhatsApp',
+                content: (
+                  <a href={waHref} target="_blank" rel="noopener noreferrer" dir="ltr">
+                    {PHONE_DISPLAY}
+                  </a>
+                ),
+              },
+              {
                 icon: 'phone',
                 strong: t('contact.phone'),
                 content: (
-                  <a href="tel:+22222020202" dir="ltr">
-                    +222 22 02 02 02
+                  <a href={`tel:${PHONE_TEL}`} dir="ltr">
+                    {PHONE_DISPLAY}
                   </a>
                 ),
               },
@@ -83,47 +78,30 @@ export default function Contact() {
             ))}
           </ul>
 
-          <form className="contact__form" onSubmit={handleSubmit}>
-            {submitted ? (
-              <div className="contact__success" role="status">
-                <span className="contact__success-icon">
-                  <Icon name="check" size={28} strokeWidth={2} />
-                </span>
-                <span className="contact__success-text">{t('contact.form.submit')}</span>
-              </div>
-            ) : (
-              <div className="contact__fields">
-                {[
-                  { type: 'text', name: 'name', label: t('contact.form.name'), required: true },
-                  { type: 'email', name: 'email', label: t('contact.form.email'), required: true },
-                ].map((field) => (
-                  <label key={field.name}>
-                    <span>{field.label}</span>
-                    <input type={field.type} name={field.name} required={field.required} />
-                  </label>
-                ))}
-                <div className="contact__row">
-                  <label>
-                    <span>{t('contact.form.guests')}</span>
-                    <input type="number" name="guests" min="1" max="50" defaultValue="2" />
-                  </label>
-                  <label>
-                    <span>{t('contact.form.date')}</span>
-                    <input type="date" name="date" required />
-                  </label>
-                </div>
-                <label>
-                  <span>{t('contact.form.message')}</span>
-                  <textarea name="message" rows={4} />
-                </label>
-                <div>
-                  <button type="submit" className="btn btn--gold btn--full">
-                    {t('contact.form.submit')}
-                  </button>
-                </div>
-              </div>
-            )}
-          </form>
+          <div className="contact__wa">
+            <span className="contact__wa-icon">
+              <Icon name="whatsapp" size={34} strokeWidth={1.6} />
+            </span>
+            <div className="contact__wa-body">
+              <h3 className="contact__wa-title">{t('contact.wa.title')}</h3>
+              <p className="contact__wa-text">{t('contact.wa.text')}</p>
+              {Array.isArray(steps) && (
+                <ol className="contact__wa-steps">
+                  {steps.map((step, i) => (
+                    <li key={step}>
+                      <span className="contact__wa-num">{i + 1}</span>
+                      {step}
+                    </li>
+                  ))}
+                </ol>
+              )}
+              <a href={waHref} className="btn btn--wa btn--lg btn--full" target="_blank" rel="noopener noreferrer">
+                <Icon name="whatsapp" size={22} />
+                {t('contact.wa.cta')}
+              </a>
+              <p className="contact__wa-note">{t('contact.wa.note')}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -108,8 +108,8 @@ export default function Hero() {
           <a href="#contact" className="btn btn--gold btn--lg">
             {t('hero.cta')}
           </a>
-          <a href="#about" className="btn btn--outline">
-            {t('hero.scroll')}
+          <a href="#menu" className="btn btn--outline">
+            {t('hero.menuCta')}
           </a>
         </div>
       </div>
