@@ -119,7 +119,7 @@ export default function Navbar() {
         </ul>
 
         <div className="navbar__actions">
-          <LanguageSwitcher />
+          {/* Language switcher lives in the mobile menu and the footer, not the top bar */}
           <a href="#contact" className="btn btn--gold btn--sm">
             {t('nav.reserve')}
           </a>

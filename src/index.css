@@ -2478,6 +2478,19 @@ main > section > .container {
   }
 }
 
+/* Footer language switcher — the list opens upward (it's at the page bottom) */
+.footer__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+.footer .lang-dropdown__menu {
+  top: auto;
+  bottom: calc(100% + 0.6rem);
+}
+
 /* ============================================================
    Dark islands — anything sitting on video/photos keeps light text
    (custom properties cascade, so redefining tokens here flips them)

@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
+import LanguageSwitcher from './LanguageSwitcher'
 import { gsap, useGSAP, motionOK, onEnter } from '../animations/gsap'
 
 export default function Footer() {
@@ -28,9 +29,12 @@ export default function Footer() {
           <Logo className="footer__logo" alt="" />
           <p className="footer__tagline">{t('footer.tagline')}</p>
         </div>
-        <p className="footer__copy">
-          © {year} L'endroit_parfait. {t('footer.rights')}
-        </p>
+        <div className="footer__end">
+          <LanguageSwitcher />
+          <p className="footer__copy">
+            © {year} L'endroit_parfait. {t('footer.rights')}
+          </p>
+        </div>
       </div>
     </footer>
   )
