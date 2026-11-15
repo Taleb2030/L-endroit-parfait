@@ -17,7 +17,9 @@
     "subtitle": "An exclusive sanctuary for discerning guests — where gastronomy meets sophistication, and every moment becomes an unforgettable experience.",
     "cta": "Reserve Your Table",
     "scroll": "Discover More",
-    "menuCta": "View the Menu"
+    "menuCta": "View the Menu",
+    "openNow": "Open now",
+    "closedNow": "Closed · opens at 12:00"
   },
   "menu": {
     "label": "Our Menu",

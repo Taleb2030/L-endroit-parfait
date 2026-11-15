@@ -1,11 +1,24 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
 import Icon from './Icon'
+import HeroCanvas from './HeroCanvas'
 import { gsap, useGSAP, motionOK } from '../animations/gsap'
 import { assetUrl } from '../utils/assetUrl'
 
 const HERO_VIDEO = assetUrl('assets/videos/video1.mp4')
+
+// Opening hours 12:00–00:00 in Nouakchott (UTC+0, no daylight saving)
+const isOpenNow = () => new Date().getUTCHours() >= 12
+
+function useOpenNow() {
+  const [open, setOpen] = useState(isOpenNow)
+  useEffect(() => {
+    const id = setInterval(() => setOpen(isOpenNow()), 60_000)
+    return () => clearInterval(id)
+  }, [])
+  return open
+}
 
 export default function Hero() {
   const { t } = useTranslation()
@@ -13,6 +26,7 @@ export default function Hero() {
   const videoRef = useRef(null)
   const [useVideo, setUseVideo] = useState(true)
   const [videoPaused, setVideoPaused] = useState(() => !motionOK())
+  const open = useOpenNow()
 
   const title = t('hero.title')
 
@@ -45,7 +59,9 @@ export default function Hero() {
         }, 0.85)
         .from('.hero__subtitle', { y: 26, autoAlpha: 0, duration: 1 }, 1.25)
         .from('.hero__actions', { y: 24, autoAlpha: 0, duration: 0.9 }, 1.45)
-        .from('.hero__scroll, .hero__pause', { autoAlpha: 0, duration: 0.8 }, 1.8)
+        .from('.hero__meta > *', { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.1 }, 1.65)
+        .from('.hero__corner', { scale: 0.4, autoAlpha: 0, duration: 1.2, ease: 'power4.out', stagger: 0.08 }, 0.6)
+        .from('.hero__scroll, .hero__pause', { autoAlpha: 0, duration: 0.8 }, 1.9)
         // Gentle float after the logo lands
         .to('.hero__logo-stage', { y: -7, duration: 2.6, ease: 'sine.inOut', repeat: -1, yoyo: true }, 1.5)
 
@@ -87,7 +103,16 @@ export default function Hero() {
         ) : null}
         <div className={`hero__fallback ${useVideo ? '' : 'hero__fallback--visible'}`} aria-hidden />
         <div className="hero__overlay" />
+        <HeroCanvas />
         <div className="hero__grain" aria-hidden />
+      </div>
+
+      {/* Fine corner brackets — a menu-card style frame around the hero */}
+      <div className="hero__frame" aria-hidden>
+        <span className="hero__corner hero__corner--tl" />
+        <span className="hero__corner hero__corner--tr" />
+        <span className="hero__corner hero__corner--bl" />
+        <span className="hero__corner hero__corner--br" />
       </div>
 
       <div className="hero__content container">
@@ -112,6 +137,21 @@ export default function Hero() {
             {t('hero.menuCta')}
           </a>
         </div>
+
+        <ul className="hero__meta">
+          <li className={`hero__status ${open ? 'is-open' : ''}`}>
+            <span className="hero__status-dot" aria-hidden />
+            {open ? t('hero.openNow') : t('hero.closedNow')}
+          </li>
+          <li>
+            <Icon name="clock" size={16} />
+            {t('contact.hoursValue')}
+          </li>
+          <li>
+            <Icon name="pin" size={16} />
+            {t('contact.address')}
+          </li>
+        </ul>
       </div>
 
       {useVideo && (
@@ -126,7 +166,10 @@ export default function Hero() {
       )}
 
       <a href="#about" className="hero__scroll" aria-label={t('hero.scroll')}>
-        <span className="hero__scroll-line" />
+        <span className="hero__scroll-mouse" aria-hidden>
+          <span className="hero__scroll-wheel" />
+        </span>
+        <span className="hero__scroll-text">{t('hero.scroll')}</span>
       </a>
     </section>
   )

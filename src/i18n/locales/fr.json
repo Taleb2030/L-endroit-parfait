@@ -17,7 +17,9 @@
     "subtitle": "Un sanctuaire exclusif pour les convives exigeants — où la gastronomie rencontre la sophistication, et chaque moment devient une expérience inoubliable.",
     "cta": "Réserver votre table",
     "scroll": "Découvrir Plus",
-    "menuCta": "Voir la carte"
+    "menuCta": "Voir la carte",
+    "openNow": "Ouvert maintenant",
+    "closedNow": "Fermé · ouvre à 12h00"
   },
   "menu": {
     "label": "La Carte",

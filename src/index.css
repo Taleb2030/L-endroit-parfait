@@ -1442,7 +1442,7 @@ html {
   min-width: 60px;
   padding-inline: 16px;
   color: #fff;
-  background: var(--color-wa);
+  background: var(--color-wa-deep);
   border-radius: 999px;
   box-shadow: 0 10px 26px rgba(40, 30, 20, 0.22), 0 0 0 0 rgba(var(--wa-rgb), 0.5);
   animation: wa-ping 2.8s ease-out infinite;
@@ -1451,7 +1451,7 @@ html {
 
 .wa-float:hover {
   transform: translateY(-3px) scale(1.04);
-  background: var(--color-wa-deep);
+  background: #0b6532;
 }
 
 .wa-float__label {
@@ -2300,6 +2300,182 @@ html {
 /* The spotlight effect scales whole sections — keep them from causing sideways scroll */
 main > section > .container {
   transform-origin: 50% 0%;
+}
+
+/* ============================================================
+   Home page (hero) — three.js light motes, frame, status chips
+   ============================================================ */
+.hero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Warmer, more cinematic grade over the video */
+.hero__overlay {
+  background:
+    radial-gradient(ellipse 65% 55% at 50% 45%, rgba(var(--ink-rgb), 0.2) 0%, rgba(var(--ink-rgb), 0.7) 100%),
+    linear-gradient(180deg, rgba(var(--ink-rgb), 0.5) 0%, rgba(var(--ink-rgb), 0.35) 35%, rgba(var(--ink-rgb), 0.85) 100%),
+    linear-gradient(120deg, rgba(var(--accent-rgb), 0.18), transparent 55%);
+}
+
+.hero__content {
+  padding-block: 8rem 7rem;
+}
+
+/* Fine corner brackets — like the border of a printed menu card */
+.hero__frame {
+  position: absolute;
+  /* bottom inset clears the video pause button and the floating WhatsApp button */
+  inset: clamp(84px, 12vh, 108px) clamp(12px, 3vw, 32px) 104px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__corner {
+  position: absolute;
+  width: clamp(26px, 4vw, 48px);
+  height: clamp(26px, 4vw, 48px);
+  border: 0 solid rgba(255, 255, 255, 0.45);
+}
+
+.hero__corner--tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+.hero__corner--tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+.hero__corner--bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+.hero__corner--br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+
+.hero__title {
+  letter-spacing: -0.015em;
+}
+
+.hero__subtitle {
+  color: rgba(var(--cream-rgb), 0.86);
+}
+
+/* Secondary hero button: frosted glass */
+.hero .btn--outline {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.hero .btn--outline:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+/* Info chips under the buttons */
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 2.5rem;
+}
+
+.hero__meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 36px;
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  color: var(--color-cream);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+}
+
+.hero__meta .icon {
+  color: var(--color-gold);
+}
+
+.hero__status-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+
+.hero__status.is-open .hero__status-dot {
+  background: #4ade80;
+}
+
+.hero__status.is-open .hero__status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: hero-status-ping 2s ease-out infinite;
+}
+
+@keyframes hero-status-ping {
+  0% { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* Scroll cue: mouse outline with a moving wheel */
+.hero__scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+.hero__scroll-mouse {
+  display: flex;
+  justify-content: center;
+  width: 24px;
+  height: 38px;
+  padding-top: 7px;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+}
+
+.hero__scroll-wheel {
+  width: 3px;
+  height: 7px;
+  border-radius: 2px;
+  background: #fff;
+  animation: hero-wheel 1.8s ease-in-out infinite;
+}
+
+@keyframes hero-wheel {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+.hero__scroll-text {
+  font-size: 0.66rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+[dir='rtl'] .hero__scroll-text {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@media (max-width: 640px) {
+  .hero__meta li {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .hero__scroll-text {
+    display: none;
+  }
 }
 
 /* ============================================================
