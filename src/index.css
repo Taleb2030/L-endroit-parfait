@@ -1,46 +1,50 @@
 /* L'endroit_parfait — design tokens
-   "Bordeaux & Ivory" palette: charcoal night, deep wine red, ivory, soft rose.
-   All text pairs checked against WCAG AA (most pass AAA).
-   Legacy token names (--gold-*) are kept so every component picks the
-   new colours up — they now hold the ROSE highlight, not gold:
-     --color-gold*   = rose highlight for text/icons/lines on dark (8.3:1)
-     --color-brand   = wine red for filled buttons & active states (white text 7.3:1) */
+   "Light & Elegant" palette: warm white, near-black ink, olive green, terracotta.
+   Checked against WCAG AA: text 16:1, muted 6.7:1, terracotta 5.1:1, white on olive 7.7:1.
+   Legacy token names are kept so every component picks the colours up:
+     --color-cream   = main TEXT colour (dark ink on the light theme)
+     --color-gold*   = terracotta highlight for small text, icons and lines
+     --color-brand   = olive green for filled buttons & active states (white text)
+   Areas that sit on photos/video (.hero, video cards, carousel photo, the
+   navbar over the hero) switch back to light text — see "Dark islands" below. */
 :root {
-  color-scheme: dark;
-  --bg-rgb: 15, 12, 14;
-  --gold-rgb: 232, 145, 159;
-  --gold-light-rgb: 242, 184, 193;
-  --accent-rgb: 159, 43, 64;
-  --brand-rgb: 159, 43, 64;
-  --cream-rgb: 244, 239, 234;
-  --color-bg: #0f0c0e;
-  --color-bg-elevated: #161215;
-  --color-surface: #1e181c;
-  --color-gold: #e8919f;
-  --color-gold-light: #f2b8c1;
-  --color-gold-pale: #fadde2;
-  --color-gold-deep: #9f2b40;
-  --color-brand: #9f2b40;
-  --color-brand-hover: #b8374e;
-  --brand-fill: linear-gradient(135deg, #b8374e 0%, #9f2b40 55%, #7e1f31 100%);
+  color-scheme: light;
+  --bg-rgb: 250, 247, 242;
+  --gold-rgb: 164, 83, 47;
+  --gold-light-rgb: 140, 68, 38;
+  --accent-rgb: 181, 101, 61;
+  --brand-rgb: 63, 90, 60;
+  --cream-rgb: 28, 27, 25;
+  --ink-rgb: 17, 16, 14;
+  --color-bg: #faf7f2;
+  --color-bg-elevated: #f3eee6;
+  --color-surface: #ffffff;
+  --color-gold: #a4532f;
+  --color-gold-light: #8c4426;
+  --color-gold-pale: #6e3a22;
+  --color-gold-deep: #3f5a3c;
+  --color-brand: #3f5a3c;
+  --color-brand-hover: #4c6b48;
+  --brand-fill: linear-gradient(135deg, #4c6b48 0%, #3f5a3c 55%, #33492f 100%);
   --color-on-gold: #ffffff;
-  --color-cream: #f4efea;
-  --color-muted: #b3a7ac;
-  --color-accent: #c64a60;
-  --surface-fallback: linear-gradient(135deg, #24161b 0%, #0f0c0e 50%, #1d1418 100%);
+  --color-cream: #1c1b19;
+  --color-muted: #5c574f;
+  --color-accent: #b5653d;
+  --surface-fallback: linear-gradient(135deg, #2a2620 0%, #11100e 50%, #24201b 100%);
   --wa-rgb: 37, 211, 102;
   --color-wa: #25d366;
-  --color-border: rgba(var(--gold-rgb), 0.16);
-  --glass: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.14);
+  --color-wa-deep: #0f7a3d;
+  --color-border: rgba(28, 27, 25, 0.1);
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(28, 27, 25, 0.1);
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Outfit', system-ui, sans-serif;
   --font-arabic: 'Noto Sans Arabic', 'Outfit', sans-serif;
   --radius: 12px;
   --radius-lg: 20px;
   --radius-xl: 28px;
-  --shadow-gold: 0 8px 40px rgba(var(--brand-rgb), 0.35);
-  --shadow-soft: 0 24px 64px rgba(0, 0, 0, 0.5);
+  --shadow-gold: 0 8px 30px rgba(var(--brand-rgb), 0.25);
+  --shadow-soft: 0 20px 50px rgba(60, 45, 30, 0.1);
   --glow-gold: 0 0 48px rgba(var(--gold-light-rgb), 0.35);
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -64,7 +68,7 @@ body {
   font-family: var(--font-body);
   background:
     radial-gradient(ellipse 120% 90% at 50% -10%, rgba(var(--gold-rgb), 0.09), transparent 50%),
-    linear-gradient(180deg, #0f0c0e 0%, #130f12 100%),
+    linear-gradient(180deg, #faf7f2 0%, #f6f1e9 100%),
     var(--color-bg);
   color: var(--color-cream);
   line-height: 1.65;
@@ -281,7 +285,7 @@ ul {
   border-radius: 999px;
   cursor: pointer;
   transition: var(--transition);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 14px rgba(60, 45, 30, 0.08);
 }
 
 .lang-dropdown__trigger:hover,
@@ -290,7 +294,7 @@ ul {
   color: var(--color-gold-light);
   background: linear-gradient(135deg, rgba(var(--gold-rgb), 0.2), rgba(var(--gold-light-rgb), 0.14));
   box-shadow: 
-    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 4px 14px rgba(60, 45, 30, 0.1),
     0 0 24px rgba(var(--gold-rgb), 0.18);
 }
 
@@ -320,7 +324,7 @@ ul {
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 12px 32px rgba(60, 45, 30, 0.14),
     0 0 32px rgba(var(--gold-rgb), 0.12);
   backdrop-filter: blur(16px);
   z-index: 150;
@@ -408,7 +412,7 @@ ul {
   backdrop-filter: blur(24px) saturate(1.3);
   border-bottom: 1px solid var(--color-border);
   box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.35),
+    0 6px 24px rgba(60, 45, 30, 0.08),
     0 0 32px rgba(var(--gold-rgb), 0.1);
   padding-block: 0.65rem;
 }
@@ -847,7 +851,7 @@ ul {
   border: 2px solid var(--color-border);
   box-shadow: 
     0 0 60px rgba(var(--gold-rgb), 0.15),
-    0 20px 60px rgba(0, 0, 0, 0.6);
+    0 20px 50px rgba(60, 45, 30, 0.12);
   background: var(--color-surface);
   transition: translate 0.3s ease, box-shadow 0.3s ease;
 }
@@ -856,7 +860,7 @@ ul {
   translate: 0 -2px;
   box-shadow: 
     0 0 80px rgba(var(--gold-rgb), 0.25),
-    0 30px 80px rgba(0, 0, 0, 0.7);
+    0 28px 60px rgba(60, 45, 30, 0.16);
 }
 
 .experience__carousel-media {
@@ -988,7 +992,7 @@ ul {
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(var(--cream-rgb), 0.18);
   cursor: pointer;
   transition: var(--transition);
 }
@@ -1138,12 +1142,12 @@ html {
 /* Gold button — one coherent champagne gradient */
 .btn--gold {
   background: var(--brand-fill);
-  box-shadow: 0 8px 28px rgba(var(--brand-rgb), 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(var(--brand-rgb), 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .btn--gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 40px rgba(var(--brand-rgb), 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  box-shadow: 0 14px 34px rgba(var(--brand-rgb), 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .btn--outline {
@@ -1414,7 +1418,7 @@ html {
 /* WhatsApp button */
 .btn--wa {
   color: #fff;
-  background: linear-gradient(135deg, #2fe07a 0%, var(--color-wa) 55%, #128c4a 100%);
+  background: linear-gradient(135deg, #179a4c 0%, var(--color-wa-deep) 55%, #0b6532 100%);
   box-shadow: 0 8px 28px rgba(var(--wa-rgb), 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   font-weight: 600;
 }
@@ -1440,14 +1444,14 @@ html {
   color: #fff;
   background: var(--color-wa);
   border-radius: 999px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 0 rgba(var(--wa-rgb), 0.5);
+  box-shadow: 0 10px 26px rgba(40, 30, 20, 0.22), 0 0 0 0 rgba(var(--wa-rgb), 0.5);
   animation: wa-ping 2.8s ease-out infinite;
   transition: transform var(--transition), background var(--transition);
 }
 
 .wa-float:hover {
   transform: translateY(-3px) scale(1.04);
-  background: #1fbe5b;
+  background: var(--color-wa-deep);
 }
 
 .wa-float__label {
@@ -1468,8 +1472,8 @@ html {
 }
 
 @keyframes wa-ping {
-  0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 0 rgba(var(--wa-rgb), 0.5); }
-  70%, 100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 16px rgba(var(--wa-rgb), 0); }
+  0% { box-shadow: 0 10px 26px rgba(40, 30, 20, 0.22), 0 0 0 0 rgba(var(--wa-rgb), 0.5); }
+  70%, 100% { box-shadow: 0 10px 26px rgba(40, 30, 20, 0.22), 0 0 0 16px rgba(var(--wa-rgb), 0); }
 }
 
 /* Menu */
@@ -1670,14 +1674,14 @@ html {
   isolation: isolate;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 24px 50px rgba(40, 30, 20, 0.22);
   transition: border-color 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
 }
 
 .vslider__slide.is-active .vslider__card {
   border-color: rgba(var(--gold-rgb), 0.55);
   box-shadow:
-    0 50px 100px rgba(0, 0, 0, 0.65),
+    0 36px 70px rgba(40, 30, 20, 0.3),
     0 0 0 1px rgba(var(--gold-rgb), 0.18),
     0 0 80px rgba(var(--gold-rgb), 0.22);
 }
@@ -1778,7 +1782,7 @@ html {
   z-index: 3;
   height: 3px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(var(--cream-rgb), 0.25);
   overflow: hidden;
   pointer-events: none;
 }
@@ -1970,7 +1974,7 @@ html {
   height: 2px;
   margin-top: 0.15rem;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(var(--cream-rgb), 0.12);
   overflow: hidden;
 }
 
@@ -2115,7 +2119,7 @@ html {
   height: 2px;
   margin: 1.25rem auto 0;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(var(--cream-rgb), 0.12);
   overflow: hidden;
 }
 
@@ -2193,7 +2197,7 @@ html {
 
 .gallery {
   background:
-    radial-gradient(ellipse 80% 60% at 50% 60%, rgba(var(--brand-rgb), 0.22), transparent 75%),
+    radial-gradient(ellipse 80% 60% at 50% 60%, rgba(var(--brand-rgb), 0.07), transparent 75%),
     var(--color-bg);
 }
 
@@ -2296,6 +2300,56 @@ html {
 /* The spotlight effect scales whole sections — keep them from causing sideways scroll */
 main > section > .container {
   transform-origin: 50% 0%;
+}
+
+/* ============================================================
+   Dark islands — anything sitting on video/photos keeps light text
+   (custom properties cascade, so redefining tokens here flips them)
+   ============================================================ */
+.hero,
+.navbar:not(.navbar--scrolled),
+.vslider__stage,
+.experience__carousel-media {
+  --bg-rgb: var(--ink-rgb);
+  --cream-rgb: 247, 243, 236;
+  --gold-rgb: 232, 176, 140;
+  --gold-light-rgb: 242, 201, 174;
+  --color-cream: #f7f3ec;
+  --color-muted: #d9d3c9;
+  --color-gold: #e8b08c;
+  --color-gold-light: #f2c9ae;
+  --color-gold-pale: #f8e3d4;
+  --color-border: rgba(255, 255, 255, 0.18);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  color-scheme: dark;
+}
+
+/* Section-label pill reads better as solid white on the light page */
+.section-label {
+  background: var(--color-surface);
+  border-color: rgba(var(--gold-rgb), 0.25);
+  color: var(--color-gold);
+}
+
+/* Cards: crisp white with a soft warm shadow */
+.menu__board,
+.contact__wa,
+.contact__details li {
+  background: var(--color-surface);
+  box-shadow: 0 10px 30px rgba(60, 45, 30, 0.06);
+}
+
+.contact__wa {
+  border-color: rgba(var(--wa-rgb), 0.35);
+  background: linear-gradient(160deg, rgba(var(--wa-rgb), 0.07) 0%, var(--color-surface) 55%);
+}
+
+.contact__wa-icon {
+  background: var(--color-wa-deep);
+}
+
+.menu__tab {
+  background: var(--color-surface);
 }
 
 /* Respect reduced motion */
