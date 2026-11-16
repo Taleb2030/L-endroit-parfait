@@ -19,7 +19,19 @@
     "scroll": "Discover More",
     "menuCta": "View the Menu",
     "openNow": "Open now",
-    "closedNow": "Closed · opens at 12:00"
+    "closedNow": "Closed · opens at 12:00",
+    "chapters": {
+      "kitchen": {
+        "kicker": "From our kitchen",
+        "title": "Slow-cooked, served with soul",
+        "text": "Every plate is prepared to order — Atlantic fish from this morning's catch, lamb roasted for hours, sauces made from scratch."
+      },
+      "reserve": {
+        "kicker": "Your table awaits",
+        "title": "Reserve in one message",
+        "text": "No forms, no waiting. Send us a WhatsApp message and we confirm your table within minutes."
+      }
+    }
   },
   "menu": {
     "label": "Our Menu",
@@ -29,6 +41,10 @@
     "orderText": "Want to reserve or ask about a dish? We answer on WhatsApp.",
     "orderCta": "Ask on WhatsApp",
     "orderMessage": "Hello L'endroit_parfait! I have a question about your menu.",
+    "dishMessage": "Hello L'endroit_parfait! I'd like to ask about: {{dish}}",
+    "orderDish": "Ask about this dish",
+    "prev": "Previous dish",
+    "next": "Next dish",
     "categories": [
       {
         "title": "Starters",

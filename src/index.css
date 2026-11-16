@@ -2478,6 +2478,348 @@ main > section > .container {
   }
 }
 
+/* ============================================================
+   3D scroll showcase — home: scroll-scrubbed video story
+   ============================================================ */
+.hero {
+  display: block;
+  min-height: 0;
+  overflow: clip; /* clip (not hidden) so the sticky stage keeps working */
+}
+
+.hero--scrub {
+  height: 320vh;
+}
+
+.hero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero:not(.hero--scrub) .hero__sticky {
+  position: relative;
+  height: auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.hero__frames {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero__chapter {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-block: 6rem;
+  visibility: hidden; /* GSAP reveals each chapter */
+}
+
+.hero__chapter-num {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 600;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45);
+  font-variant-numeric: lining-nums; /* no descending "3" touching the line below */
+  margin-bottom: 0.75rem;
+}
+
+.hero__chapter-title {
+  max-width: 16ch;
+  margin-bottom: 1.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6.5vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--color-cream);
+  filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
+}
+
+[dir='rtl'] .hero__chapter-title {
+  font-family: var(--font-arabic);
+  line-height: 1.3;
+}
+
+.hero__chapter .hero__subtitle {
+  max-width: 560px;
+}
+
+/* Progress rail on the side of the story */
+.hero__rail {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: clamp(18px, 4vw, 56px);
+  z-index: 2;
+  width: 2px;
+  height: clamp(120px, 22vh, 200px);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%);
+  overflow: hidden;
+}
+
+.hero__rail-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--color-gold-light), var(--color-gold));
+  transform-origin: top center;
+  transform: scaleY(0);
+}
+
+/* Thin loader line while video frames are being prepared */
+.hero__loader {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  z-index: 3;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hero__loader-bar {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-gold-light), var(--color-gold));
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+
+[dir='rtl'] .hero__loader-bar {
+  transform-origin: right center;
+}
+
+/* ============================================================
+   3D scroll showcase — menu: curved shelf of dish cards
+   ============================================================ */
+.menu--shelf {
+  height: calc(100vh + var(--menu-steps, 12) * 16vh);
+  overflow: clip;
+}
+
+.menu__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-block: 84px 1rem;
+}
+
+.menu__head .section-header {
+  margin-bottom: 0;
+}
+
+.menu__head .section-title {
+  font-size: clamp(1.6rem, 3.6vw, 2.5rem);
+  margin-bottom: 0.4rem;
+}
+
+.menu__stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 200px;
+}
+
+.menu__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  touch-action: pan-y; /* vertical swipes still scroll the page */
+}
+
+.menu__canvas:active {
+  cursor: grabbing;
+}
+
+.menu__info {
+  text-align: center;
+  min-height: 8.5rem;
+}
+
+.menu__info-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.menu__info-cat[data-cat='0'] { color: #3f5a3c; }
+.menu__info-cat[data-cat='1'] { color: #a4532f; }
+.menu__info-cat[data-cat='2'] { color: #8e4a5a; }
+.menu__info-cat[data-cat='3'] { color: #1f5e63; }
+
+.menu__info-count {
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+[dir='rtl'] .menu__info-cat {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.menu__info-name {
+  margin-block: 0.25rem 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.6vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--color-cream);
+}
+
+[dir='rtl'] .menu__info-name {
+  font-family: var(--font-arabic);
+}
+
+.menu__info-desc {
+  max-width: 560px;
+  margin-inline: auto;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.menu__info-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.menu__info-price {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-cream);
+}
+
+.menu__info-price small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.menu__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.menu__cats {
+  display: flex;
+  gap: 0.4rem;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.menu__cats::-webkit-scrollbar {
+  display: none;
+}
+
+.menu__cats .menu__tab {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+}
+
+.menu__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: var(--color-cream);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.menu__arrow:hover:not(:disabled) {
+  color: #fff;
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
+.menu__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+[dir='rtl'] .menu__arrow .icon {
+  transform: scaleX(-1);
+}
+
+/* Phones: swipe replaces the arrows; keep the chips clear of the floating WhatsApp button */
+@media (max-width: 640px) {
+  .menu__arrow {
+    display: none;
+  }
+
+  .menu__controls {
+    justify-content: flex-start;
+    padding-inline-end: 84px;
+  }
+}
+
+@media (max-height: 700px), (max-width: 480px) {
+  .menu__head .section-label {
+    display: none;
+  }
+
+  .menu__info {
+    min-height: 7.5rem;
+  }
+
+  .menu__info-desc {
+    -webkit-line-clamp: 1;
+  }
+}
+
+/* The Latin brand name keeps its own font (and left-to-right) in Arabic */
+[dir='rtl'] .navbar__name {
+  font-family: var(--font-display);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
 /* Footer language switcher — the list opens upward (it's at the page bottom) */
 .footer__end {
   display: flex;

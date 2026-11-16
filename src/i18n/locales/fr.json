@@ -19,7 +19,19 @@
     "scroll": "Découvrir Plus",
     "menuCta": "Voir la carte",
     "openNow": "Ouvert maintenant",
-    "closedNow": "Fermé · ouvre à 12h00"
+    "closedNow": "Fermé · ouvre à 12h00",
+    "chapters": {
+      "kitchen": {
+        "kicker": "De notre cuisine",
+        "title": "Mijoté lentement, servi avec âme",
+        "text": "Chaque assiette est préparée à la commande — poisson de l'Atlantique pêché le matin, agneau rôti pendant des heures, sauces maison."
+      },
+      "reserve": {
+        "kicker": "Votre table vous attend",
+        "title": "Réservez en un message",
+        "text": "Pas de formulaire, pas d'attente. Envoyez-nous un message WhatsApp et nous confirmons votre table en quelques minutes."
+      }
+    }
   },
   "menu": {
     "label": "La Carte",
@@ -29,6 +41,10 @@
     "orderText": "Envie de réserver ou d'une question sur un plat ? Nous répondons sur WhatsApp.",
     "orderCta": "Demander sur WhatsApp",
     "orderMessage": "Bonjour L'endroit_parfait ! J'ai une question sur votre carte.",
+    "dishMessage": "Bonjour L'endroit_parfait ! J'ai une question sur : {{dish}}",
+    "orderDish": "Demander ce plat",
+    "prev": "Plat précédent",
+    "next": "Plat suivant",
     "categories": [
       {
         "title": "Entrées",
