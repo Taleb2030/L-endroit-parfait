@@ -5,8 +5,8 @@
      --color-cream   = main TEXT colour (dark ink on the light theme)
      --color-gold*   = terracotta highlight for small text, icons and lines
      --color-brand   = olive green for filled buttons & active states (white text)
-   Areas that sit on photos/video (.hero, video cards, carousel photo, the
-   navbar over the hero) switch back to light text — see "Dark islands" below. */
+   Areas that sit on photos/video (gallery video cards, the experience
+   carousel photo) switch back to light text — see "Dark islands" below. */
 :root {
   color-scheme: light;
   --bg-rgb: 250, 247, 242;
@@ -95,12 +95,10 @@ main {
 
 [dir='rtl'] body,
 [dir='rtl'] .section-title,
-[dir='rtl'] .hero__title,
 [dir='rtl'] .navbar__name {
   font-family: var(--font-arabic);
 }
 
-[dir='rtl'] .hero__title,
 [dir='rtl'] .section-title {
   font-weight: 600;
 }
@@ -544,174 +542,6 @@ ul {
   }
 }
 
-/* Hero */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  width: 100%;
-  max-width: 100%;
-}
-
-.hero__media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero__video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero__fallback {
-  position: absolute;
-  inset: 0;
-  background: var(--surface-fallback);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.hero__fallback--visible {
-  opacity: 1;
-}
-
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(var(--bg-rgb), 0.25) 0%, rgba(var(--bg-rgb), 0.72) 100%),
-    linear-gradient(180deg, rgba(var(--bg-rgb), 0.35) 0%, rgba(var(--bg-rgb), 0.55) 40%, rgba(var(--bg-rgb), 0.92) 100%);
-}
-
-.hero__grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  pointer-events: none;
-}
-
-.hero__content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding-block: 8rem 4rem;
-  padding-inline: 1rem;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Hero logo — clean, no background frame */
-.hero__logo-stage {
-  margin-inline: auto;
-  margin-bottom: 2rem;
-}
-
-@keyframes hero-logo-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-.hero__logo.logo--hero,
-.hero__logo-stage .hero__logo {
-  width: clamp(88px, 16vw, 120px);
-  height: clamp(88px, 16vw, 120px);
-  margin-inline: auto;
-  object-fit: contain;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--gold-rgb), 0.15), rgba(var(--gold-rgb), 0.06));
-  padding: 8px;
-  border: 2px solid var(--color-border);
-  filter:
-    brightness(1.2)
-    drop-shadow(0 4px 20px rgba(0, 0, 0, 0.4))
-    drop-shadow(0 0 24px rgba(var(--gold-rgb), 0.28));
-  transition: filter 0.5s var(--ease-out), transform 0.5s var(--ease-out);
-}
-
-.hero__logo-stage:hover .hero__logo {
-  filter:
-    brightness(1.3)
-    drop-shadow(0 6px 24px rgba(0, 0, 0, 0.45))
-    drop-shadow(0 0 32px rgba(var(--gold-light-rgb), 0.4));
-  transform: scale(1.04);
-}
-
-.hero__tagline {
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  padding-inline: 0.5rem;
-  text-transform: uppercase;
-  color: var(--color-gold-pale);
-  margin-bottom: 1rem;
-  text-shadow: 0 0 24px rgba(var(--gold-rgb), 0.35);
-}
-
-.hero__title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 10vw, 5.5rem);
-  font-weight: 600;
-  line-height: 1.05;
-  background: linear-gradient(180deg, #fff 0%, var(--color-cream) 60%, #e7dcd6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1.25rem;
-}
-
-.hero__subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  color: rgba(var(--cream-rgb), 0.85);
-  max-width: 580px;
-  margin-inline: auto;
-  margin-bottom: 2.5rem;
-  font-weight: 300;
-  line-height: 1.75;
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.hero__scroll {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-}
-
-[dir='rtl'] .hero__scroll {
-  left: auto;
-  right: 50%;
-  transform: translateX(50%);
-}
-
-.hero__scroll-line {
-  display: block;
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(180deg, var(--color-gold), transparent);
-  animation: scroll-pulse 2s ease-in-out infinite;
-}
-
-@keyframes scroll-pulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(0.6); }
-  50% { opacity: 1; transform: scaleY(1); }
-}
-
 /* About */
 .about {
   background: var(--color-bg-elevated);
@@ -1094,11 +924,6 @@ ul {
     display: none;
   }
 
-  .hero__title {
-    font-size: clamp(2.25rem, 12vw, 3.5rem);
-    padding-inline: 0.25rem;
-  }
-
   .section-label {
     letter-spacing: 0.15em;
     max-width: 100%;
@@ -1203,30 +1028,6 @@ html {
 
 .navbar__mobile > a:not(.btn) {
   border-bottom: 1px solid rgba(var(--gold-rgb), 0.08);
-}
-
-/* Hero — ornamental tagline */
-.hero__tagline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-
-.hero__tagline::before,
-.hero__tagline::after {
-  content: '';
-  width: clamp(18px, 6vw, 48px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-gold));
-}
-
-.hero__tagline::after {
-  background: linear-gradient(270deg, transparent, var(--color-gold));
-}
-
-.hero__title {
-  text-shadow: none;
-  filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
 }
 
 /* Section header */
@@ -2036,46 +1837,6 @@ html {
   display: inline-block;
 }
 
-/* Hero title: each letter carries the gold gradient so it survives transforms */
-.hero__title {
-  background: none;
-  -webkit-text-fill-color: initial;
-  perspective: 600px;
-}
-
-.hero__char {
-  display: inline-block;
-  background: linear-gradient(180deg, #fff 0%, var(--color-cream) 55%, #e7dcd6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transform-origin: 50% 100%;
-}
-
-.hero__pause {
-  position: absolute;
-  bottom: 1.5rem;
-  inset-inline-start: 1.5rem; /* the floating WhatsApp button sits on the other side */
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  color: var(--color-cream);
-  background: rgba(var(--bg-rgb), 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  backdrop-filter: blur(8px);
-  cursor: pointer;
-  transition: border-color var(--transition), color var(--transition);
-}
-
-.hero__pause:hover {
-  border-color: var(--color-gold);
-  color: var(--color-gold-light);
-}
-
 /* Mobile menu is shown/hidden by GSAP */
 .navbar__mobile {
   visibility: hidden;
@@ -2151,26 +1912,18 @@ html {
 
 /* Arabic — wide letter-spacing breaks joined letters */
 [dir='rtl'] .section-label,
-[dir='rtl'] .hero__tagline,
 [dir='rtl'] .contact__details strong,
 [dir='rtl'] .lang-dropdown__current,
 [dir='rtl'] .btn {
   letter-spacing: 0;
 }
 
-[dir='rtl'] .hero__tagline,
 [dir='rtl'] .section-label {
   text-transform: none;
   font-family: var(--font-arabic);
 }
 
-/* Latin brand name & phone numbers stay left-to-right in Arabic */
-[dir='rtl'] .hero__title {
-  direction: ltr;
-  unicode-bidi: isolate;
-  font-family: var(--font-display);
-}
-
+/* Phone numbers stay left-to-right in Arabic */
 [dir='rtl'] .contact__details a {
   display: inline-block;
   direction: ltr;
@@ -2300,310 +2053,6 @@ html {
 /* The spotlight effect scales whole sections — keep them from causing sideways scroll */
 main > section > .container {
   transform-origin: 50% 0%;
-}
-
-/* ============================================================
-   Home page (hero) — three.js light motes, frame, status chips
-   ============================================================ */
-.hero__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
-/* Warmer, more cinematic grade over the video */
-.hero__overlay {
-  background:
-    radial-gradient(ellipse 65% 55% at 50% 45%, rgba(var(--ink-rgb), 0.2) 0%, rgba(var(--ink-rgb), 0.7) 100%),
-    linear-gradient(180deg, rgba(var(--ink-rgb), 0.5) 0%, rgba(var(--ink-rgb), 0.35) 35%, rgba(var(--ink-rgb), 0.85) 100%),
-    linear-gradient(120deg, rgba(var(--accent-rgb), 0.18), transparent 55%);
-}
-
-.hero__content {
-  padding-block: 8rem 7rem;
-}
-
-/* Fine corner brackets — like the border of a printed menu card */
-.hero__frame {
-  position: absolute;
-  /* bottom inset clears the video pause button and the floating WhatsApp button */
-  inset: clamp(84px, 12vh, 108px) clamp(12px, 3vw, 32px) 104px;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.hero__corner {
-  position: absolute;
-  width: clamp(26px, 4vw, 48px);
-  height: clamp(26px, 4vw, 48px);
-  border: 0 solid rgba(255, 255, 255, 0.45);
-}
-
-.hero__corner--tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
-.hero__corner--tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
-.hero__corner--bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
-.hero__corner--br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
-
-.hero__title {
-  letter-spacing: -0.015em;
-}
-
-.hero__subtitle {
-  color: rgba(var(--cream-rgb), 0.86);
-}
-
-/* Secondary hero button: frosted glass */
-.hero .btn--outline {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(10px);
-}
-
-.hero .btn--outline:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.6);
-  color: #fff;
-}
-
-/* Info chips under the buttons */
-.hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6rem;
-  margin-top: 2.5rem;
-}
-
-.hero__meta li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 36px;
-  padding: 0.45rem 1rem;
-  font-size: 0.85rem;
-  color: var(--color-cream);
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  backdrop-filter: blur(10px);
-}
-
-.hero__meta .icon {
-  color: var(--color-gold);
-}
-
-.hero__status-dot {
-  position: relative;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-gold);
-}
-
-.hero__status.is-open .hero__status-dot {
-  background: #4ade80;
-}
-
-.hero__status.is-open .hero__status-dot::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #4ade80;
-  animation: hero-status-ping 2s ease-out infinite;
-}
-
-@keyframes hero-status-ping {
-  0% { transform: scale(1); opacity: 0.7; }
-  80%, 100% { transform: scale(2.8); opacity: 0; }
-}
-
-/* Scroll cue: mouse outline with a moving wheel */
-.hero__scroll {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  z-index: 2;
-}
-
-.hero__scroll-mouse {
-  display: flex;
-  justify-content: center;
-  width: 24px;
-  height: 38px;
-  padding-top: 7px;
-  border: 1.5px solid rgba(255, 255, 255, 0.6);
-  border-radius: 14px;
-}
-
-.hero__scroll-wheel {
-  width: 3px;
-  height: 7px;
-  border-radius: 2px;
-  background: #fff;
-  animation: hero-wheel 1.8s ease-in-out infinite;
-}
-
-@keyframes hero-wheel {
-  0% { transform: translateY(0); opacity: 1; }
-  70% { transform: translateY(10px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 0; }
-}
-
-.hero__scroll-text {
-  font-size: 0.66rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-[dir='rtl'] .hero__scroll-text {
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-@media (max-width: 640px) {
-  .hero__meta li {
-    font-size: 0.78rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .hero__scroll-text {
-    display: none;
-  }
-}
-
-/* ============================================================
-   3D scroll showcase — home: scroll-scrubbed video story
-   ============================================================ */
-.hero {
-  display: block;
-  min-height: 0;
-  overflow: clip; /* clip (not hidden) so the sticky stage keeps working */
-}
-
-.hero--scrub {
-  height: 320vh;
-}
-
-.hero__sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero:not(.hero--scrub) .hero__sticky {
-  position: relative;
-  height: auto;
-  min-height: 100vh;
-  min-height: 100dvh;
-}
-
-.hero__frames {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.hero__chapter {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding-block: 6rem;
-  visibility: hidden; /* GSAP reveals each chapter */
-}
-
-.hero__chapter-num {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 12vw, 8rem);
-  font-weight: 600;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.45);
-  font-variant-numeric: lining-nums; /* no descending "3" touching the line below */
-  margin-bottom: 0.75rem;
-}
-
-.hero__chapter-title {
-  max-width: 16ch;
-  margin-bottom: 1.25rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 6.5vw, 4.75rem);
-  font-weight: 600;
-  line-height: 1.05;
-  color: var(--color-cream);
-  filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
-}
-
-[dir='rtl'] .hero__chapter-title {
-  font-family: var(--font-arabic);
-  line-height: 1.3;
-}
-
-.hero__chapter .hero__subtitle {
-  max-width: 560px;
-}
-
-/* Progress rail on the side of the story */
-.hero__rail {
-  position: absolute;
-  top: 50%;
-  inset-inline-end: clamp(18px, 4vw, 56px);
-  z-index: 2;
-  width: 2px;
-  height: clamp(120px, 22vh, 200px);
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-50%);
-  overflow: hidden;
-}
-
-.hero__rail-fill {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, var(--color-gold-light), var(--color-gold));
-  transform-origin: top center;
-  transform: scaleY(0);
-}
-
-/* Thin loader line while video frames are being prepared */
-.hero__loader {
-  position: absolute;
-  top: 0;
-  inset-inline: 0;
-  z-index: 3;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.hero__loader-bar {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-gold-light), var(--color-gold));
-  transform-origin: left center;
-  transform: scaleX(0);
-  transition: transform 0.3s ease-out;
-}
-
-[dir='rtl'] .hero__loader-bar {
-  transform-origin: right center;
 }
 
 /* ============================================================
@@ -2813,6 +2262,491 @@ main > section > .container {
   }
 }
 
+/* ============================================================
+   Home — one screen: text + food video in an arch
+   ============================================================ */
+.home {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding-block: clamp(96px, 14vh, 128px) clamp(56px, 8vh, 80px);
+  background:
+    radial-gradient(ellipse 60% 70% at 85% 40%, rgba(var(--accent-rgb), 0.1), transparent 70%),
+    radial-gradient(ellipse 50% 60% at 0% 100%, rgba(var(--brand-rgb), 0.07), transparent 70%),
+    var(--color-bg);
+  overflow: clip;
+}
+
+.home__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Soft terracotta "sun" behind the arch */
+.home__sun {
+  position: absolute;
+  top: 50%;
+  inset-inline-end: clamp(-120px, 4vw, 120px);
+  width: clamp(320px, 42vw, 620px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(var(--accent-rgb), 0.28), rgba(var(--accent-rgb), 0.06) 60%, transparent 72%);
+  transform: translateY(-50%);
+}
+
+/* Fine dot grid, bottom corner */
+.home__dots {
+  position: absolute;
+  bottom: 8%;
+  inset-inline-start: 3%;
+  width: 180px;
+  height: 120px;
+  background-image: radial-gradient(rgba(var(--brand-rgb), 0.35) 1.2px, transparent 1.5px);
+  background-size: 16px 16px;
+  opacity: 0.6;
+}
+
+.home__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 6vw, 5.5rem);
+  align-items: center;
+}
+
+/* --- Text column --- */
+.home__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.home__kicker::before {
+  content: '';
+  width: 36px;
+  height: 1px;
+  background: currentColor;
+}
+
+[dir='rtl'] .home__kicker {
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.9rem;
+}
+
+.home__title {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6.6vw, 5.6rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-cream);
+}
+
+/* The Latin brand keeps its serif and reads left-to-right in Arabic too */
+[dir='rtl'] .home__title {
+  direction: ltr;
+  justify-content: flex-end;
+}
+
+.home__char-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-block: 0.08em 0.12em;
+}
+
+.home__char {
+  display: inline-block;
+}
+
+.home__headline {
+  max-width: 22ch;
+  margin-bottom: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-brand);
+}
+
+[dir='rtl'] .home__headline {
+  font-family: var(--font-arabic);
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.home__lead {
+  max-width: 34rem;
+  margin-bottom: 2rem;
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--color-muted);
+}
+
+.home__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+}
+
+/* Secondary action: quiet text link with a sliding arrow */
+.home__link {
+  padding-inline: 0.25rem;
+  color: var(--color-cream);
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.home__link-arrow {
+  transition: transform var(--transition);
+}
+
+.home__link:hover {
+  color: var(--color-brand);
+}
+
+.home__link:hover .home__link-arrow {
+  transform: translateX(4px);
+}
+
+[dir='rtl'] .home__link-arrow {
+  transform: scaleX(-1);
+}
+
+[dir='rtl'] .home__link:hover .home__link-arrow {
+  transform: scaleX(-1) translateX(4px);
+}
+
+.home__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2.25rem;
+}
+
+.home__meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 36px;
+  padding: 0.4rem 0.95rem;
+  font-size: 0.84rem;
+  color: var(--color-cream);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(60, 45, 30, 0.05);
+}
+
+.home__meta .icon {
+  color: var(--color-gold);
+}
+
+.home__status-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+
+.home__status.is-open .home__status-dot,
+.home__status.is-open .home__status-dot::after {
+  background: #16a34a;
+}
+
+.home__status.is-open .home__status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: home-ping 2s ease-out infinite;
+}
+
+@keyframes home-ping {
+  0% { transform: scale(1); opacity: 0.6; }
+  80%, 100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* --- Visual column: arch + badge + chef's pick --- */
+.home__visual {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 440px);
+  perspective: 1200px;
+}
+
+.home__arch {
+  position: relative;
+  aspect-ratio: 3 / 4.1;
+  max-height: min(68vh, 600px);
+  margin-inline: auto;
+  transform-style: preserve-3d;
+}
+
+.home__arch-outline {
+  position: absolute;
+  inset: -14px;
+  border: 1px solid rgba(var(--brand-rgb), 0.35);
+  border-radius: 999px 999px 30px 30px;
+  transform: translateZ(-30px);
+  pointer-events: none;
+}
+
+.home__arch-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 999px 999px 24px 24px;
+  background: var(--surface-fallback);
+  box-shadow:
+    0 30px 60px rgba(60, 45, 30, 0.22),
+    0 8px 20px rgba(60, 45, 30, 0.1);
+}
+
+.home__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home__arch-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(var(--ink-rgb), 0.35) 100%);
+  pointer-events: none;
+}
+
+.home__play {
+  position: absolute;
+  bottom: 16px;
+  inset-inline-start: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: #fff;
+  background: rgba(var(--ink-rgb), 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transform: translateZ(20px);
+  transition: background var(--transition);
+}
+
+.home__play:hover {
+  background: rgba(var(--ink-rgb), 0.7);
+}
+
+.home__badge {
+  position: absolute;
+  top: 14%;
+  inset-inline-start: clamp(-64px, -5vw, -24px);
+  display: grid;
+  place-items: center;
+  width: clamp(112px, 11vw, 140px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: 0 14px 34px rgba(60, 45, 30, 0.16);
+}
+
+.home__badge-ring {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  animation: home-spin 28s linear infinite;
+}
+
+.home__badge-ring text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  fill: var(--color-brand);
+}
+
+/* Lay the ring out left-to-right so the text starts on the circle path;
+   Arabic words still shape and read correctly inside it */
+[dir='rtl'] .home__badge-ring text {
+  font-family: var(--font-arabic);
+  letter-spacing: 0;
+  direction: ltr;
+}
+
+@keyframes home-spin {
+  to { transform: rotate(360deg); }
+}
+
+.home__badge-logo {
+  width: 46%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.home__pick {
+  position: absolute;
+  bottom: 9%;
+  inset-inline-end: clamp(-56px, -4vw, -16px);
+  display: grid;
+  gap: 0.15rem;
+  min-width: 190px;
+  padding: 0.9rem 1.15rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(60, 45, 30, 0.16);
+  transition: translate var(--transition), box-shadow var(--transition);
+}
+
+.home__pick:hover {
+  translate: 0 -3px;
+  box-shadow: 0 24px 48px rgba(60, 45, 30, 0.2);
+}
+
+.home__pick-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+[dir='rtl'] .home__pick-label {
+  letter-spacing: 0;
+  font-size: 0.78rem;
+}
+
+.home__pick-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-cream);
+}
+
+[dir='rtl'] .home__pick-name {
+  font-family: var(--font-arabic);
+  font-size: 1.05rem;
+}
+
+.home__pick-price {
+  font-weight: 600;
+  color: var(--color-brand);
+}
+
+.home__pick-price small {
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+/* Scroll cue: a short line that keeps drawing downward */
+.home__scroll {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  width: 44px;
+  height: 52px;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+}
+
+.home__scroll-line {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--color-brand));
+  transform-origin: top;
+  animation: home-scroll 2.2s ease-in-out infinite;
+}
+
+@keyframes home-scroll {
+  0% { transform: scaleY(0); opacity: 1; }
+  60% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* Tablet & phone: stack, text first */
+@media (max-width: 899px) {
+  .home {
+    align-items: flex-start;
+  }
+
+  .home__grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .home__text {
+    text-align: center;
+  }
+
+  .home__kicker,
+  .home__actions,
+  .home__meta {
+    justify-content: center;
+  }
+
+  .home__title {
+    justify-content: center;
+  }
+
+  [dir='rtl'] .home__title {
+    justify-content: center;
+  }
+
+  .home__headline,
+  .home__lead {
+    margin-inline: auto;
+  }
+
+  .home__visual {
+    width: min(78%, 360px);
+  }
+
+  .home__scroll {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .home__visual {
+    width: 72%;
+  }
+
+  .home__pick {
+    min-width: 0;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .home__pick-name {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-height: 640px) and (min-width: 900px) {
+  .home__meta {
+    margin-top: 1.25rem;
+  }
+}
+
 /* The Latin brand name keeps its own font (and left-to-right) in Arabic */
 [dir='rtl'] .navbar__name {
   font-family: var(--font-display);
@@ -2837,8 +2771,6 @@ main > section > .container {
    Dark islands — anything sitting on video/photos keeps light text
    (custom properties cascade, so redefining tokens here flips them)
    ============================================================ */
-.hero,
-.navbar:not(.navbar--scrolled),
 .vslider__stage,
 .experience__carousel-media {
   --bg-rgb: var(--ink-rgb);

@@ -2,12 +2,11 @@ import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
 import Icon from './Icon'
-import { gsap, ScrollTrigger, useGSAP, motionOK } from '../animations/gsap'
+import { gsap, useGSAP, motionOK } from '../animations/gsap'
 import { assetUrl } from '../utils/assetUrl'
-import { createFrameSequence, drawCover } from '../utils/frameSequence'
 import { whatsappLink } from '../config/contact'
 
-const HERO_VIDEO = assetUrl('assets/videos/video1.mp4')
+const HOME_VIDEO = assetUrl('assets/videos/video1.mp4')
 
 // Opening hours 12:00–00:00 in Nouakchott (UTC+0, no daylight saving)
 const isOpenNow = () => new Date().getUTCHours() >= 12
@@ -22,222 +21,128 @@ function useOpenNow() {
 }
 
 /**
- * Home — "scroll-scrubbed video" showcase.
- * The section is ~3 screens tall; its inner stage stays pinned while the food
- * video plays forward/backward with the scroll and three text chapters
- * crossfade. Reduced motion (or a video that can't be decoded) falls back to
- * the classic single-screen hero with a normal video.
+ * Home — one screen. Text on the left, the food video inside a tall arch on
+ * the right, with a turning badge and a "chef's pick" card from the menu.
  */
 export default function Hero() {
   const { t } = useTranslation()
   const rootRef = useRef(null)
-  const canvasRef = useRef(null)
   const videoRef = useRef(null)
-  const progressRef = useRef(0)
-  const [mode, setMode] = useState(() => (motionOK() ? 'scrub' : 'video'))
-  const [loaded, setLoaded] = useState(0) // % of frames captured
-  const [videoPaused, setVideoPaused] = useState(() => !motionOK())
+  const [paused, setPaused] = useState(() => !motionOK())
   const open = useOpenNow()
-  const scrub = mode === 'scrub'
   const title = t('hero.title')
 
-  // Capture frames + draw the one matching the scroll position
-  useEffect(() => {
-    if (!scrub) return
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
-    const small = window.innerWidth < 700
-    const seq = createFrameSequence(HERO_VIDEO, {
-      count: small ? 32 : 48,
-      width: 1080, // capped at the video's own width
-      onProgress: (n, total) => setLoaded(Math.round((n / total) * 100)),
-    })
-    seq.done.catch((err) => {
-      console.warn('[hero] scroll video unavailable, using normal video:', err.message)
-      setMode('video')
-    })
+  // Chef's pick = first main dish on the menu (updates with the menu data)
+  const categories = t('menu.categories', { returnObjects: true })
+  const pick = Array.isArray(categories) ? (categories[1] ?? categories[0])?.items?.[0] : null
 
-    let shown = -1
-    let current = 0
-    let lastImg = null
-    let visible = true
-
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio, 1.5)
-      canvas.width = Math.round(canvas.clientWidth * dpr)
-      canvas.height = Math.round(canvas.clientHeight * dpr)
-      shown = -1 // force redraw
-    }
-    const ro = new ResizeObserver(resize)
-    ro.observe(canvas)
-    resize()
-
-    const tick = () => {
-      if (!visible) return
-      const target = progressRef.current * (seq.count - 1)
-      // Ease toward the scroll position (frame-rate independent)
-      current += (target - current) * (1 - Math.pow(1 - 0.18, gsap.ticker.deltaRatio(60)))
-      const img = seq.nearest(current)
-      const index = Math.round(current)
-      if (img && (index !== shown || img !== lastImg)) {
-        drawCover(ctx, img, canvas.width, canvas.height)
-        shown = index
-        lastImg = img
-      }
-    }
-    gsap.ticker.add(tick)
-
-    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting))
-    io.observe(canvas)
-
-    return () => {
-      gsap.ticker.remove(tick)
-      io.disconnect()
-      ro.disconnect()
-      seq.dispose()
-    }
-  }, [scrub])
+  const badgeText = t('hero.badge')
 
   useGSAP(
     () => {
-      if (!motionOK()) return
+      const mm = gsap.matchMedia()
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const rtl = document.documentElement.dir === 'rtl' ? -1 : 1
 
-      // Intro sequence (first screen)
-      gsap
-        .timeline({ defaults: { ease: 'power3.out' } })
-        .from('.hero__media', { scale: 1.15, autoAlpha: 0, duration: 1.8, ease: 'power2.out' })
-        .from('.hero__logo-stage', { scale: 0.5, rotation: -12, autoAlpha: 0, duration: 1.1, ease: 'back.out(1.8)' }, 0.35)
-        .from(
-          '.hero__tagline',
-          {
-            y: 14,
-            autoAlpha: 0,
-            duration: 1,
-            // Widening letters would break joined Arabic script
-            ...(document.documentElement.dir === 'rtl' ? {} : { letterSpacing: '0.5em' }),
-          },
-          0.7
-        )
-        .from('.hero__char', { yPercent: 120, rotationX: -90, autoAlpha: 0, duration: 1.1, ease: 'power4.out', stagger: 0.035 }, 0.85)
-        .from('.hero__subtitle', { y: 26, autoAlpha: 0, duration: 1 }, 1.25)
-        .from('.hero__actions', { y: 24, autoAlpha: 0, duration: 0.9 }, 1.45)
-        .from('.hero__meta > *', { y: 18, autoAlpha: 0, duration: 0.8, stagger: 0.1 }, 1.65)
-        .from('.hero__corner', { scale: 0.4, autoAlpha: 0, duration: 1.2, ease: 'power4.out', stagger: 0.08 }, 0.6)
-        .from('.hero__scroll, .hero__pause, .hero__rail', { autoAlpha: 0, duration: 0.8 }, 1.9)
+        // Intro
+        gsap
+          .timeline({ defaults: { ease: 'power3.out' }, delay: 0.15 })
+          .fromTo(
+            '.home__arch-clip',
+            { clipPath: 'inset(100% 0% 0% 0%)' },
+            { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'power4.inOut' }
+          )
+          .from('.home__video', { scale: 1.35, duration: 2, ease: 'power3.out' }, 0.2)
+          .from('.home__arch-outline', { autoAlpha: 0, scale: 0.94, duration: 1.2 }, 0.6)
+          .from('.home__sun', { scale: 0.4, autoAlpha: 0, duration: 1.6, ease: 'expo.out' }, 0.3)
+          .from('.home__kicker', { y: 16, autoAlpha: 0, duration: 0.8 }, 0.35)
+          .from('.home__char', { yPercent: 110, autoAlpha: 0, duration: 1, ease: 'power4.out', stagger: 0.03 }, 0.45)
+          .from('.home__headline', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.85)
+          .from('.home__lead', { y: 20, autoAlpha: 0, duration: 0.9 }, 1)
+          // Animate the wrapper, not the .btn elements: buttons have their own CSS
+          // transitions, which can fight a tween and leave them invisible
+          .from('.home__actions', { y: 18, autoAlpha: 0, duration: 0.8 }, 1.1)
+          .from('.home__meta > *', { y: 14, autoAlpha: 0, duration: 0.7, stagger: 0.08 }, 1.25)
+          .from('.home__badge', { scale: 0, rotation: -90 * rtl, duration: 1.1, ease: 'back.out(1.6)' }, 1)
+          .from('.home__pick', { x: 40 * rtl, autoAlpha: 0, duration: 1, ease: 'power4.out' }, 1.2)
+          .from('.home__scroll', { autoAlpha: 0, duration: 0.8 }, 1.6)
 
-      if (!scrub) {
-        // Classic hero: content drifts up as you scroll away
-        gsap.to('.hero__phase--1', {
-          y: -90,
-          autoAlpha: 0,
-          ease: 'none',
-          scrollTrigger: { trigger: rootRef.current, start: 'top top', end: '75% top', scrub: true },
-        })
-        return
-      }
+        // Scroll: badge turns, arch and text drift at different speeds
+        const st = { trigger: rootRef.current, start: 'top top', end: 'bottom top', scrub: 0.6 }
+        gsap.to('.home__badge-ring', { rotation: 140 * rtl, ease: 'none', scrollTrigger: st })
+        gsap.to('.home__visual', { yPercent: -10, ease: 'none', scrollTrigger: st })
+        gsap.to('.home__text', { yPercent: 8, autoAlpha: 0.2, ease: 'none', scrollTrigger: st })
 
-      // Scroll story: one timeline from 0 → 1 across the pinned section
-      const tl = gsap.timeline({
-        defaults: { ease: 'power2.inOut' },
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.6,
-          onUpdate: (self) => (progressRef.current = self.progress),
-        },
+        // 3D tilt of the arch toward the pointer (desktop only)
+        const visual = rootRef.current.querySelector('.home__arch')
+        const rx = gsap.quickTo(visual, 'rotationX', { duration: 0.8, ease: 'power3.out' })
+        const ry = gsap.quickTo(visual, 'rotationY', { duration: 0.8, ease: 'power3.out' })
+        const onMove = (e) => {
+          if (e.pointerType !== 'mouse') return
+          rx(((e.clientY / window.innerHeight) - 0.5) * -8)
+          ry(((e.clientX / window.innerWidth) - 0.5) * 10)
+        }
+        window.addEventListener('pointermove', onMove)
+        return () => window.removeEventListener('pointermove', onMove)
       })
-      tl.to('.hero__scroll-wrap', { autoAlpha: 0, duration: 0.06 }, 0.04)
-        .to('.hero__phase--1', { autoAlpha: 0, y: -70, duration: 0.16 }, 0.1)
-        .fromTo('.hero__phase--2', { autoAlpha: 0, y: 70 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.3)
-        .to('.hero__phase--2', { autoAlpha: 0, y: -70, duration: 0.14 }, 0.56)
-        .fromTo('.hero__phase--3', { autoAlpha: 0, y: 70 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.74)
-        .fromTo('.hero__media', { scale: 1 }, { scale: 1.06, ease: 'none', duration: 1 }, 0)
-        .fromTo('.hero__rail-fill', { scaleY: 0 }, { scaleY: 1, ease: 'none', duration: 1 }, 0)
-        .set({}, {}, 1) // keep total length exactly 1
+      return () => mm.revert()
     },
-    { scope: rootRef, dependencies: [scrub], revertOnUpdate: true }
+    { scope: rootRef }
   )
-
-  // Text length/direction changes with the language — re-measure
-  useEffect(() => {
-    const id = requestAnimationFrame(() => ScrollTrigger.refresh())
-    return () => cancelAnimationFrame(id)
-  }, [mode])
 
   const toggleVideo = () => {
     const video = videoRef.current
     if (!video) return
     if (video.paused) {
       video.play().catch(() => {})
-      setVideoPaused(false)
+      setPaused(false)
     } else {
       video.pause()
-      setVideoPaused(true)
+      setPaused(true)
     }
   }
 
-  const phases = [
-    { key: 'kitchen', n: '02' },
-    { key: 'reserve', n: '03' },
-  ]
-
   return (
-    <section id="home" className={`hero ${scrub ? 'hero--scrub' : ''}`} ref={rootRef}>
-      <div className="hero__sticky">
-        <div className="hero__media">
-          <div className="hero__fallback hero__fallback--visible" aria-hidden />
-          {scrub ? (
-            <canvas ref={canvasRef} className="hero__frames" aria-hidden />
-          ) : (
-            <video
-              ref={videoRef}
-              className="hero__video"
-              autoPlay={!videoPaused}
-              muted
-              loop
-              playsInline
-            >
-              <source src={HERO_VIDEO} type="video/mp4" />
-            </video>
-          )}
-          <div className="hero__overlay" />
-          <div className="hero__grain" aria-hidden />
-        </div>
+    <section id="home" className="home" ref={rootRef}>
+      <div className="home__bg" aria-hidden>
+        <span className="home__sun" />
+        <span className="home__dots" />
+      </div>
 
-        {/* Fine corner brackets — a menu-card style frame */}
-        <div className="hero__frame" aria-hidden>
-          <span className="hero__corner hero__corner--tl" />
-          <span className="hero__corner hero__corner--tr" />
-          <span className="hero__corner hero__corner--bl" />
-          <span className="hero__corner hero__corner--br" />
-        </div>
+      <div className="container home__grid">
+        <div className="home__text">
+          <p className="home__kicker">{t('hero.kicker')}</p>
 
-        {/* Chapter 1 — welcome */}
-        <div className="hero__phase hero__phase--1 hero__content container">
-          <div className="hero__logo-stage">
-            <Logo className="hero__logo" variant="hero" />
-          </div>
-          <p className="hero__tagline">{t('hero.tagline')}</p>
-          <h1 className="hero__title" aria-label={title}>
+          <h1 className="home__title" aria-label={title}>
             {[...title].map((char, i) => (
-              <span className="hero__char" key={`${i}-${char}`} aria-hidden>
-                {char}
+              <span className="home__char-mask" key={`${i}-${char}`} aria-hidden>
+                <span className="home__char">{char}</span>
               </span>
             ))}
           </h1>
-          <p className="hero__subtitle">{t('hero.subtitle')}</p>
-          <div className="hero__actions">
-            <a href="#contact" className="btn btn--gold btn--lg">
-              {t('hero.cta')}
+
+          <p className="home__headline">{t('hero.headline')}</p>
+          <p className="home__lead">{t('hero.lead')}</p>
+
+          <div className="home__actions">
+            <a
+              href={whatsappLink(t('contact.wa.message'))}
+              className="btn btn--gold btn--lg"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="whatsapp" size={20} />
+              {t('hero.ctaWhatsapp')}
             </a>
-            <a href="#menu" className="btn btn--outline">
+            <a href="#menu" className="btn home__link">
               {t('hero.menuCta')}
+              <Icon name="chevronRight" size={18} className="home__link-arrow" />
             </a>
           </div>
-          <ul className="hero__meta">
-            <li className={`hero__status ${open ? 'is-open' : ''}`}>
-              <span className="hero__status-dot" aria-hidden />
+
+          <ul className="home__meta">
+            <li className={`home__status ${open ? 'is-open' : ''}`}>
+              <span className="home__status-dot" aria-hidden />
               {open ? t('hero.openNow') : t('hero.closedNow')}
             </li>
             <li>
@@ -251,67 +156,63 @@ export default function Hero() {
           </ul>
         </div>
 
-        {/* Chapters 2 & 3 — only in the scroll story */}
-        {scrub &&
-          phases.map(({ key, n }) => (
-            <div key={key} className={`hero__phase hero__phase--${n === '02' ? 2 : 3} hero__chapter container`}>
-              <span className="hero__chapter-num">{n}</span>
-              <p className="hero__tagline">{t(`hero.chapters.${key}.kicker`)}</p>
-              <h2 className="hero__chapter-title">{t(`hero.chapters.${key}.title`)}</h2>
-              <p className="hero__subtitle">{t(`hero.chapters.${key}.text`)}</p>
-              {key === 'reserve' && (
-                <div className="hero__actions">
-                  <a
-                    href={whatsappLink(t('contact.wa.message'))}
-                    className="btn btn--wa btn--lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon name="whatsapp" size={20} />
-                    {t('contact.wa.cta')}
-                  </a>
-                  <a href="#menu" className="btn btn--outline">
-                    {t('hero.menuCta')}
-                  </a>
-                </div>
-              )}
+        <div className="home__visual">
+          <div className="home__arch">
+            <span className="home__arch-outline" aria-hidden />
+            <div className="home__arch-clip">
+              <video
+                ref={videoRef}
+                className="home__video"
+                src={HOME_VIDEO}
+                autoPlay={!paused}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-hidden
+              />
+              <span className="home__arch-shade" aria-hidden />
             </div>
-          ))}
-
-        {/* Scroll-story progress rail */}
-        {scrub && (
-          <div className="hero__rail" aria-hidden>
-            <span className="hero__rail-fill" />
+            <button
+              type="button"
+              className="home__play"
+              onClick={toggleVideo}
+              aria-label={paused ? t('gallery.play') : t('gallery.pause')}
+            >
+              <Icon name={paused ? 'play' : 'pause'} size={14} />
+            </button>
           </div>
-        )}
 
-        {/* Branded loader while frames are being prepared */}
-        {scrub && loaded < 100 && (
-          <div className={`hero__loader ${loaded > 0 ? 'is-started' : ''}`} aria-hidden>
-            <span className="hero__loader-bar" style={{ transform: `scaleX(${loaded / 100})` }} />
+          {/* Turning badge: circular text around the logo */}
+          <div className="home__badge" aria-hidden>
+            <svg className="home__badge-ring" viewBox="0 0 200 200">
+              <defs>
+                <path id="home-badge-circle" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0" />
+              </defs>
+              <text>
+                <textPath href="#home-badge-circle" textLength="474">
+                  {badgeText + badgeText}
+                </textPath>
+              </text>
+            </svg>
+            <Logo className="home__badge-logo" alt="" />
           </div>
-        )}
 
-        {!scrub && (
-          <button
-            type="button"
-            className="hero__pause"
-            onClick={toggleVideo}
-            aria-label={videoPaused ? t('gallery.play') : t('gallery.pause')}
-          >
-            <Icon name={videoPaused ? 'play' : 'pause'} size={16} />
-          </button>
-        )}
-
-        <div className="hero__scroll-wrap">
-          <a href="#about" className="hero__scroll" aria-label={t('hero.scroll')}>
-            <span className="hero__scroll-mouse" aria-hidden>
-              <span className="hero__scroll-wheel" />
-            </span>
-            <span className="hero__scroll-text">{t('hero.scroll')}</span>
-          </a>
+          {pick && (
+            <a href="#menu" className="home__pick">
+              <span className="home__pick-label">{t('hero.pick')}</span>
+              <span className="home__pick-name">{pick.name}</span>
+              <span className="home__pick-price">
+                {pick.price} <small>{t('menu.currency')}</small>
+              </span>
+            </a>
+          )}
         </div>
       </div>
+
+      <a href="#about" className="home__scroll" aria-label={t('hero.scroll')}>
+        <span className="home__scroll-line" aria-hidden />
+      </a>
     </section>
   )
 }

@@ -12,26 +12,17 @@
     "close": "Fermer le menu"
   },
   "hero": {
-    "tagline": "Élégance Raffinée & Excellence Culinaire",
     "title": "L'endroit_parfait",
-    "subtitle": "Un sanctuaire exclusif pour les convives exigeants — où la gastronomie rencontre la sophistication, et chaque moment devient une expérience inoubliable.",
-    "cta": "Réserver votre table",
-    "scroll": "Découvrir Plus",
+    "kicker": "Restaurant · Nouakchott",
+    "headline": "Les saveurs de Mauritanie, pour de longues soirées.",
+    "lead": "Poisson frais de l'Atlantique, agneau rôti lentement et thé à la menthe servi selon la tradition — tous les jours, de midi à minuit.",
+    "ctaWhatsapp": "Réserver sur WhatsApp",
     "menuCta": "Voir la carte",
+    "pick": "Le choix du chef",
+    "badge": "RÉSERVER · SAVOURER · CÉLÉBRER · ",
+    "scroll": "Découvrir Plus",
     "openNow": "Ouvert maintenant",
-    "closedNow": "Fermé · ouvre à 12h00",
-    "chapters": {
-      "kitchen": {
-        "kicker": "De notre cuisine",
-        "title": "Mijoté lentement, servi avec âme",
-        "text": "Chaque assiette est préparée à la commande — poisson de l'Atlantique pêché le matin, agneau rôti pendant des heures, sauces maison."
-      },
-      "reserve": {
-        "kicker": "Votre table vous attend",
-        "title": "Réservez en un message",
-        "text": "Pas de formulaire, pas d'attente. Envoyez-nous un message WhatsApp et nous confirmons votre table en quelques minutes."
-      }
-    }
+    "closedNow": "Fermé · ouvre à 12h00"
   },
   "menu": {
     "label": "La Carte",

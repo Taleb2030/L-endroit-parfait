@@ -10,7 +10,7 @@ export function useSectionFocus() {
     const mm = gsap.matchMedia()
 
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.utils.toArray('main > section:not(.hero) > .container').forEach((content) => {
+      gsap.utils.toArray('main > section:not(.home) > .container').forEach((content) => {
         const section = content.parentElement
 
         // Coming in: from faded & slightly small → full strength & full size

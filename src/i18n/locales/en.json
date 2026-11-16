@@ -12,26 +12,17 @@
     "close": "Close menu"
   },
   "hero": {
-    "tagline": "Refined Elegance & Culinary Excellence",
     "title": "L'endroit_parfait",
-    "subtitle": "An exclusive sanctuary for discerning guests — where gastronomy meets sophistication, and every moment becomes an unforgettable experience.",
-    "cta": "Reserve Your Table",
+    "kicker": "Restaurant · Nouakchott",
+    "headline": "Mauritanian flavours for long, unhurried evenings.",
+    "lead": "Fresh Atlantic fish, slow-roasted lamb and mint tea poured the traditional way — served every day from noon to midnight.",
+    "ctaWhatsapp": "Book a table on WhatsApp",
+    "menuCta": "See the menu",
+    "pick": "Chef's pick",
+    "badge": "BOOK · DINE · CELEBRATE · ",
     "scroll": "Discover More",
-    "menuCta": "View the Menu",
     "openNow": "Open now",
-    "closedNow": "Closed · opens at 12:00",
-    "chapters": {
-      "kitchen": {
-        "kicker": "From our kitchen",
-        "title": "Slow-cooked, served with soul",
-        "text": "Every plate is prepared to order — Atlantic fish from this morning's catch, lamb roasted for hours, sauces made from scratch."
-      },
-      "reserve": {
-        "kicker": "Your table awaits",
-        "title": "Reserve in one message",
-        "text": "No forms, no waiting. Send us a WhatsApp message and we confirm your table within minutes."
-      }
-    }
+    "closedNow": "Closed · opens at 12:00"
   },
   "menu": {
     "label": "Our Menu",
